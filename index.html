@@ -68,7 +68,10 @@ button.key:active{background:#ddd}
   grid-column:4;
   grid-row:4 / span 2;
 }
-.zero{grid-column:auto}
+
+.zero{
+  grid-column:1 / span 2;
+}
 </style>
 </head>
 <body>
@@ -78,26 +81,32 @@ button.key:active{background:#ddd}
     <button class="close" onclick="clearAll()" aria-label="Clear">×</button>
   </div>
   <div class="display" id="display" aria-live="polite">0</div>
-  <div class="keys">
-    <button class="key" onclick="clearAll()">C</button>
-    <button class="key" onclick="del()">Del</button>
-    <button class="key operator" onclick="op('+')">+</button>
-    <button class="key operator" onclick="op('*')">×</button>
-    <button class="key" onclick="digit('7')">7</button>
-    <button class="key" onclick="digit('8')">8</button>
-    <button class="key" onclick="digit('9')">9</button>
-    <button class="key operator" onclick="op('/')">÷</button>
-    <button class="key" onclick="digit('4')">4</button>
-    <button class="key" onclick="digit('5')">5</button>
-    <button class="key" onclick="digit('6')">6</button>
-    <button class="key operator" onclick="op('-')">−</button>
-    <button class="key zero" onclick="digit('0')">0</button>
-    <button class="key" onclick="digit('.')">.</button>
-    <button class="key equals" onclick="equals()">=</button>
-    <button class="key" onclick="digit('1')">1</button>
-    <button class="key" onclick="digit('2')">2</button>
-    <button class="key" onclick="digit('3')">3</button>
-  </div>
+  
+<div class="keys">
+  <button class="key" onclick="clearAll()">C</button>
+  <button class="key" onclick="del()">Del</button>
+  <button class="key operator" onclick="op('+')">+</button>
+  <button class="key operator" onclick="op('*')">×</button>
+
+  <button class="key" onclick="digit('7')">7</button>
+  <button class="key" onclick="digit('8')">8</button>
+  <button class="key" onclick="digit('9')">9</button>
+  <button class="key operator" onclick="op('/')">÷</button>
+
+  <button class="key" onclick="digit('4')">4</button>
+  <button class="key" onclick="digit('5')">5</button>
+  <button class="key" onclick="digit('6')">6</button>
+  <button class="key operator" onclick="op('-')">−</button>
+
+  <button class="key" onclick="digit('1')">1</button>
+  <button class="key" onclick="digit('2')">2</button>
+  <button class="key" onclick="digit('3')">3</button>
+  <button class="key equals" onclick="equals()">=</button>
+
+  <button class="key zero" onclick="digit('0')">0</button>
+  <button class="key" onclick="digit('.')">.</button>
+</div>
+
 </main>
 <script>
 const display=document.getElementById('display');
