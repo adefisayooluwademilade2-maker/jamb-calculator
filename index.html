@@ -124,22 +124,25 @@ function show() {
   display.textContent = expression;
 }
 
+
 function digit(n) {
   if (current === 'Error') clearAll();
 
   if (fresh) {
-    current = '0';
+    if (operator !== null) {
+      current = '0';
+    } else {
+      current = '0';
+      stored = null;
+      leftText = '';
+    }
     fresh = false;
   }
 
   if (n === '.' && current.includes('.')) return;
 
   if (n === '.') {
-    if (current === '0') {
-      current = '0.';
-    } else {
-      current += '.';
-    }
+    current = current === '0' ? '0.' : current + '.';
   } else {
     current = current === '0' ? n : current + n;
   }
@@ -153,6 +156,7 @@ function digit(n) {
 
   show();
 }
+
 
 function calculate(a, b, o) {
   if (o === '+') return a + b;
