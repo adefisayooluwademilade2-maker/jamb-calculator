@@ -1,0 +1,139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>JAMB Basic Calculator</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  background:#e9edf2;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  font-family:Arial,sans-serif;
+}
+.calculator{
+  width:min(340px,94vw);
+  background:#f5f5f5;
+  border:1px solid #aaa;
+  box-shadow:0 5px 18px #0002;
+}
+.titlebar{
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding-left:12px;
+  background:#ddd;
+  font-size:14px;
+  color:#222;
+}
+.close{
+  height:40px;width:46px;border:0;
+  background:#e65d49;color:white;
+  font-size:22px;
+}
+.display{
+  height:90px;
+  background:white;
+  padding:22px 12px;
+  text-align:right;
+  font-size:34px;
+  overflow:hidden;
+  white-space:nowrap;
+}
+.keys{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:repeat(4,58px);
+  gap:5px;
+  padding:8px;
+}
+button.key{
+  border:1px solid #ccc;
+  background:#fafafa;
+  font-size:21px;
+  color:#222;
+  border-radius:2px;
+}
+button.key:active{background:#ddd}
+.operator{background:#e7e7e7!important}
+.equals{
+  background:#ee8b26!important;
+  color:white!important;
+  grid-column:4;
+  grid-row:3 / span 2;
+}
+.zero{grid-column:1 / span 2}
+</style>
+</head>
+<body>
+<main class="calculator">
+  <div class="titlebar">
+    <span>Basic Calculator</span>
+    <button class="close" onclick="clearAll()" aria-label="Clear">×</button>
+  </div>
+  <div class="display" id="display" aria-live="polite">0</div>
+  <div class="keys">
+    <button class="key" onclick="clearAll()">C</button>
+    <button class="key" onclick="del()">Del</button>
+    <button class="key operator" onclick="op('+')">+</button>
+    <button class="key operator" onclick="op('*')">×</button>
+    <button class="key" onclick="digit('7')">7</button>
+    <button class="key" onclick="digit('8')">8</button>
+    <button class="key" onclick="digit('9')">9</button>
+    <button class="key operator" onclick="op('/')">÷</button>
+    <button class="key" onclick="digit('4')">4</button>
+    <button class="key" onclick="digit('5')">5</button>
+    <button class="key" onclick="digit('6')">6</button>
+    <button class="key operator" onclick="op('-')">−</button>
+    <button class="key zero" onclick="digit('0')">0</button>
+    <button class="key" onclick="digit('.')">.</button>
+    <button class="key equals" onclick="equals()">=</button>
+    <button class="key" onclick="digit('1')">1</button>
+    <button class="key" onclick="digit('2')">2</button>
+    <button class="key" onclick="digit('3')">3</button>
+  </div>
+</main>
+<script>
+const display=document.getElementById('display');
+let current='0', stored=null, operator=null, fresh=false;
+function show(){display.textContent=current}
+function digit(n){
+ if(fresh){current='0';fresh=false}
+ if(n==='.'&&current.includes('.'))return;
+ if(n==='.'&&current==='0'){current='0.';show();return}
+ current=current==='0'&&n!=='.'?n:current+n;
+ show();
+}
+function calculate(a,b,o){
+ if(o==='+')return a+b;
+ if(o==='-')return a-b;
+ if(o==='*')return a*b;
+ if(o==='/')return b===0?null:a/b;
+ return b;
+}
+function op(o){
+ if(operator&&!fresh)equals();
+ stored=Number(current);operator=o;fresh=true;
+}
+function equals(){
+ if(operator===null||stored===null)return;
+ const result=calculate(stored,Number(current),operator);
+ current=result===null?'Error':String(Number(result.toPrecision(10)));
+ stored=null;operator=null;fresh=true;show();
+}
+function clearAll(){current='0';stored=null;operator=null;fresh=false;show()}
+function del(){
+ if(fresh){current='0';fresh=false}
+ else current=current.length>1?current.slice(0,-1):'0';
+ show();
+}
+</script>
+</body>
+</html>
+  
