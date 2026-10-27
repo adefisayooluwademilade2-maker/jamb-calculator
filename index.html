@@ -4,242 +4,360 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>ExamPrep Nigeria</title>
+<meta name="theme-color" content="#e9edf2">
+<meta name="description" content="A free online JAMB basic calculator for practising calculations before your exam.">
+<title>JAMB Basic Calculator</title>
+
 <style>
-:root{--bg:#f2f5fa;--card:#fff;--text:#172033;--green:#008751;--muted:#64748b}
-body.dark{--bg:#101827;--card:#1e293b;--text:#f8fafc;--muted:#cbd5e1}
-*{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:Arial,sans-serif}
-header{background:#008751;color:white;padding:18px;text-align:center}
-header h1{margin:0 0 8px}
-nav{display:flex;gap:8px;overflow-x:auto;padding:12px;background:var(--card)}
-button,select,input{font:inherit;padding:11px;border-radius:8px;border:1px solid #cbd5e1}
-button{background:#008751;color:white;border:0;cursor:pointer}
-nav button{white-space:nowrap}
-main{max-width:900px;margin:auto;padding:15px}
-.panel{background:var(--card);padding:18px;border-radius:12px;margin-bottom:15px;box-shadow:0 2px 8px #0001}
-.hidden{display:none!important}
-label{display:block;margin:12px 0 5px}
-select,input{width:100%;background:var(--card);color:var(--text)}
-h2{margin-top:0}
-.muted{color:var(--muted)}
-.option{display:block;width:100%;margin:8px 0;text-align:left;background:var(--bg);color:var(--text);border:1px solid #94a3b8}
-.option.chosen{background:#d1fae5;border-color:#008751;color:#064e3b}
-.row{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.row button{flex:1}
-footer{text-align:center;padding:20px;color:var(--muted)}
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: #e9edf2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  font-family: Arial, sans-serif;
+}
+
+.calculator {
+  width: min(340px, 100%);
+  background: #f5f5f5;
+  border: 1px solid #aaa;
+  box-shadow: 0 5px 18px #0002;
+}
+
+.titlebar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 12px;
+  background: #ddd;
+  font-size: 14px;
+  color: #222;
+}
+
+.close {
+  height: 40px;
+  width: 46px;
+  border: 0;
+  background: #e65d49;
+  color: white;
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.display {
+  min-height: 90px;
+  background: white;
+  padding: 22px 12px;
+  text-align: right;
+  font-size: 30px;
+  color: #222;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: thin;
+  overflow-wrap: normal;
+}
+
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-template-rows: repeat(5, 58px);
+  gap: 5px;
+  padding: 8px;
+}
+
+button.key {
+  min-width: 0;
+  border: 1px solid #ccc;
+  background: #fafafa;
+  font-size: 21px;
+  color: #222;
+  border-radius: 2px;
+  cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button.key:active {
+  background: #ddd;
+}
+
+button:focus-visible {
+  outline: 2px solid #2458a6;
+  outline-offset: 2px;
+}
+
+.operator {
+  background: #e7e7e7 !important;
+}
+
+.equals {
+  background: #ee8b26 !important;
+  color: white !important;
+  grid-column: 4;
+  grid-row: 4 / span 2;
+}
+
+.zero {
+  grid-column: 1 / span 2;
+}
 </style>
 </head>
+
 <body>
-<header>
-<h1>ExamPrep Nigeria</h1>
-<p>Prepare. Practise. Succeed.</p>
-</header>
+<main class="calculator" aria-label="Basic calculator">
 
-<nav>
-<button onclick="showPage('dashboard')">Dashboard</button>
-<button onclick="showPage('cbt')">CBT Practice</button>
-<button onclick="showPage('past')">Past Questions</button>
-<button onclick="toggleDark()">🌙 Theme</button>
-</nav>
+  <div class="titlebar">
+    <span>Basic Calculator</span>
+    <button class="close" onclick="clearAll()" aria-label="Clear calculator">×</button>
+  </div>
 
-<main>
-<section id="dashboard" class="panel">
-<h2>Student Dashboard</h2>
-<p>Welcome to ExamPrep Nigeria.</p>
-<p>Exam countdown</p>
-<label for="examDate">Choose your exam date</label>
-<input id="examDate" type="date">
-<h3 id="countdown">Choose your exam date above.</h3>
-<p>Practice sessions: <strong id="sessions">0</strong></p>
-<p>Questions answered: <strong id="answered">0</strong></p>
-<p>Correct answers: <strong id="correct">0</strong></p>
-<p>Visits on this browser: <strong id="visits">1</strong></p>
-<p class="muted">Browser visits are local estimates, not total website visitors.</p>
-</section>
+  <div class="display" id="display"
+       role="status" aria-live="polite"
+       aria-atomic="true">0</div>
 
-<section id="cbt" class="panel hidden">
-<h2>CBT Practice</h2>
-<label for="exam">Examination</label>
-<select id="exam">
-<option>JAMB / UTME</option>
-<option>WAEC</option>
-<option>WAEC GCE</option>
-<option>NECO</option>
-<option>NECO GCE</option>
-</select>
-<label for="year">Question year</label>
-<select id="year"></select>
-<label for="subject">Subject</label>
-<select id="subject">
-<option>Use of English</option>
-<option>Mathematics</option>
-<option>Physics</option>
-<option>Chemistry</option>
-<option>Biology</option>
-<option>Economics</option>
-<option>Government</option>
-<option>Literature in English</option>
-<option>Commerce</option>
-<option>Accounting</option>
-</select>
-<label for="duration">Test duration</label>
-<select id="duration">
-<option value="5">5 minutes</option>
-<option value="10">10 minutes</option>
-<option value="30">30 minutes</option>
-<option value="60">60 minutes</option>
-</select>
-<div class="row">
-<button onclick="startTest()">Start practice</button>
-</div>
-<div id="testArea" class="hidden">
-<hr>
-<p id="testInfo"></p>
-<p><strong id="timer"></strong></p>
-<h3 id="question"></h3>
-<div id="options"></div>
-<p id="feedback"></p>
-<div class="row">
-<button onclick="prevQuestion()">Previous</button>
-<button onclick="nextQuestion()">Next</button>
-<button onclick="submitTest()">Submit</button>
-</div>
-</div>
-</section>
+  <div class="keys">
+    <button class="key" onclick="clearAll()">C</button>
+    <button class="key" onclick="del()">Del</button>
+    <button class="key operator" onclick="op('+')">+</button>
+    <button class="key operator" onclick="op('*')">×</button>
 
-<section id="past" class="panel hidden">
-<h2>Past Questions by Exam</h2>
-<p>Choose an examination, year and subject in CBT Practice.</p>
-<p>Question sets will appear here as verified question-bank data is added.</p>
-<p class="muted">The year selector covers 1950–2026. This does not mean questions exist for every year.</p>
-<button onclick="showPage('cbt')">Choose exam and subject</button>
-</section>
+    <button class="key" onclick="digit('7')">7</button>
+    <button class="key" onclick="digit('8')">8</button>
+    <button class="key" onclick="digit('9')">9</button>
+    <button class="key operator" onclick="op('/')">÷</button>
 
-<section class="panel">
-<h2>About the question bank</h2>
-<p>Questions must be added and checked before being presented as genuine past questions. This starter version does not yet contain the complete historical JAMB, WAEC, WAEC GCE or NECO question bank.</p>
-</section>
+    <button class="key" onclick="digit('4')">4</button>
+    <button class="key" onclick="digit('5')">5</button>
+    <button class="key" onclick="digit('6')">6</button>
+    <button class="key operator" onclick="op('-')">−</button>
+
+    <button class="key" onclick="digit('1')">1</button>
+    <button class="key" onclick="digit('2')">2</button>
+    <button class="key" onclick="digit('3')">3</button>
+    <button class="key equals" onclick="equals()">=</button>
+
+    <button class="key zero" onclick="digit('0')">0</button>
+    <button class="key" onclick="digit('.')">.</button>
+  </div>
+
 </main>
 
-<footer>ExamPrep Nigeria · Learn at your own pace</footer>
-
 <script>
-const $ = id => document.getElementById(id);
-let questions = [];
-let index = 0;
-let picks = {};
-let seconds = 0;
-let clock = null;
-let finished = false;
+'use strict';
 
-for(let y=2026;y>=1950;y--){
-  const option=document.createElement('option');
-  option.value=y;
-  option.textContent=y;
-  $('year').appendChild(option);
+const display = document.getElementById('display');
+
+let expression = '';
+let justCalculated = false;
+let errorState = false;
+
+function show() {
+  display.textContent = expression || '0';
+  display.scrollLeft = display.scrollWidth;
 }
 
-function showPage(id){
-  ['dashboard','cbt','past'].forEach(p=>$(p).classList.toggle('hidden',p!==id));
+function clearAll() {
+  expression = '';
+  justCalculated = false;
+  errorState = false;
+  show();
 }
-function toggleDark(){
-  document.body.classList.toggle('dark');
-  localStorage.setItem('examTheme',document.body.classList.contains('dark')?'dark':'light');
-}
-if(localStorage.getItem('examTheme')==='dark')document.body.classList.add('dark');
 
-$('examDate').value=localStorage.getItem('examDate')||'';
-$('examDate').addEventListener('change',()=>{
-  localStorage.setItem('examDate',$('examDate').value);
-  updateCountdown();
-});
-function updateCountdown(){
-  const date=$('examDate').value;
-  if(!date){$('countdown').textContent='Choose your exam date above.';return}
-  const days=Math.ceil((new Date(date+'T00:00:00')-new Date())/86400000);
-  $('countdown').textContent=days>0?days+' days to your exam':days===0?'Your exam date is today!':'That date has passed.';
-}
-updateCountdown();
-
-let visitCount=Number(localStorage.getItem('examVisits')||0)+1;
-localStorage.setItem('examVisits',visitCount);
-$('visits').textContent=visitCount;
-function loadStats(){
-  $('sessions').textContent=localStorage.getItem('examSessions')||0;
-  $('answered').textContent=localStorage.getItem('examAnswered')||0;
-  $('correct').textContent=localStorage.getItem('examCorrect')||0;
-}
-loadStats();
-
-/* Starter demonstration questions only.
-   Add verified and permitted past questions to this bank. */
-const bank={
-  "JAMB / UTME":{
-    "Use of English":[
-      {q:"Choose the word nearest in meaning to 'rapid'.",o:["Slow","Quick","Weak","Late"],a:1,e:"Rapid means quick or fast."},
-      {q:"Choose the correctly spelt word.",o:["Accomodate","Acommodate","Accommodate","Acomodate"],a:2,e:"Accommodate is the correct spelling."}
-    ],
-    "Mathematics":[
-      {q:"Solve: 2x + 6 = 14.",o:["2","3","4","5"],a:2,e:"2x = 8, so x = 4."}
-    ]
+function digit(n) {
+  if (errorState || justCalculated) {
+    expression = '';
+    errorState = false;
+    justCalculated = false;
   }
-};
 
-function startTest(){
-  clearInterval(clock);
-  finished=false;
-  index=0;picks={};
-  const exam=$('exam').value, subject=$('subject').value;
-  questions=(bank[exam]&&bank[exam][subject])||[];
-  if(!questions.length){
-    alert('No verified questions have been added for this exam and subject yet. The question bank must be populated first.');
+  if (n === '.') {
+    const parts = expression.split(/[+\-×÷]/);
+    const lastNumber = parts[parts.length - 1];
+
+    if (lastNumber.includes('.')) return;
+
+    if (lastNumber === '') {
+      expression += '0.';
+    } else {
+      expression += '.';
+    }
+  } else {
+    expression += n;
+  }
+
+  show();
+}
+
+function op(o) {
+  if (errorState) clearAll();
+
+  if (justCalculated) {
+    const answer = expression.split('=').pop();
+    expression = answer;
+    justCalculated = false;
+  }
+
+  const symbol = {
+    '+': '+',
+    '-': '−',
+    '*': '×',
+    '/': '÷'
+  }[o];
+
+  if (!expression) {
+    if (o === '-') {
+      expression = '−';
+      show();
+    }
     return;
   }
-  seconds=Number($('duration').value)*60;
-  $('testArea').classList.remove('hidden');
-  $('feedback').textContent='';
-  renderQuestion();
-  updateTimer();
-  clock=setInterval(()=>{
-    seconds--;
-    updateTimer();
-    if(seconds<=0)submitTest();
-  },1000);
+
+  if (/[+\-×÷.]$/.test(expression)) {
+    expression = expression.slice(0, -1);
+  }
+
+  expression += symbol;
+  show();
 }
-function updateTimer(){
-  $('timer').textContent='Time left: '+Math.floor(seconds/60)+':'+String(seconds%60).padStart(2,'0');
+
+function evaluateExpression(source) {
+  const input = source
+    .replace(/×/g, '*')
+    .replace(/÷/g, '/')
+    .replace(/−/g, '-')
+    .replace(/\s/g, '');
+
+  let position = 0;
+
+  function parseNumber() {
+    const remaining = input.slice(position);
+    const match = remaining.match(/^(?:\d+\.?\d*|\.\d+)/);
+
+    if (!match) {
+      throw new Error('Invalid number');
+    }
+
+    position += match[0].length;
+    return Number(match[0]);
+  }
+
+  function parseFactor() {
+    if (input[position] === '+') {
+      position++;
+      return parseFactor();
+    }
+
+    if (input[position] === '-') {
+      position++;
+      return -parseFactor();
+    }
+
+    return parseNumber();
+  }
+
+  function parseTerm() {
+    let value = parseFactor();
+
+    while (input[position] === '*' || input[position] === '/') {
+      const operator = input[position++];
+      const next = parseFactor();
+
+      if (operator === '/') {
+        if (next === 0) throw new Error('Cannot divide by zero');
+        value /= next;
+      } else {
+        value *= next;
+      }
+    }
+
+    return value;
+  }
+
+  function parseSum() {
+    let value = parseTerm();
+
+    while (input[position] === '+' || input[position] === '-') {
+      const operator = input[position++];
+      const next = parseTerm();
+
+      if (operator === '+') {
+        value += next;
+      } else {
+        value -= next;
+      }
+    }
+
+    return value;
+  }
+
+  const result = parseSum();
+
+  if (position !== input.length || !Number.isFinite(result)) {
+    throw new Error('Invalid calculation');
+  }
+
+  return result;
 }
-function renderQuestion(){
-  const q=questions[index];
-  $('testInfo').textContent='Question '+(index+1)+' of '+questions.length;
-  $('question').textContent=q.q;
-  $('options').innerHTML='';
-  q.o.forEach((opt,i)=>{
-    const b=document.createElement('button');
-    b.className='option'+(picks[index]===i?' chosen':'');
-    b.textContent=String.fromCharCode(65+i)+'. '+opt;
-    b.onclick=()=>{picks[index]=i;renderQuestion()};
-    $('options').appendChild(b);
-  });
-  $('feedback').textContent='';
+
+function equals() {
+  if (!expression || errorState || justCalculated) return;
+
+  if (/[+\-×÷.]$/.test(expression)) return;
+
+  const original = expression;
+
+  try {
+    const result = evaluateExpression(original);
+    const answer = String(Number(result.toPrecision(10)));
+
+    expression = original + '=' + answer;
+    justCalculated = true;
+    show();
+  } catch (error) {
+    expression = error.message === 'Cannot divide by zero'
+      ? 'Cannot divide by zero'
+      : 'Error';
+
+    errorState = true;
+    justCalculated = false;
+    show();
+  }
 }
-function nextQuestion(){if(index<questions.length-1){index++;renderQuestion()}}
-function prevQuestion(){if(index>0){index--;renderQuestion()}}
-function submitTest(){
-  if(finished||!questions.length)return;
-  finished=true;clearInterval(clock);
-  let score=0;
-  questions.forEach((q,i)=>{if(picks[i]===q.a)score++});
-  $('feedback').textContent='Your score: '+score+'/'+questions.length+'. '+questions.map((q,i)=>(i+1)+'. '+q.e).join(' ');
-  $('sessions').textContent=Number(localStorage.getItem('examSessions')||0)+1;
-  $('answered').textContent=Number(localStorage.getItem('examAnswered')||0)+Object.keys(picks).length;
-  $('correct').textContent=Number(localStorage.getItem('examCorrect')||0)+score;
-  localStorage.setItem('examSessions',$('sessions').textContent);
-  localStorage.setItem('examAnswered',$('answered').textContent);
-  localStorage.setItem('examCorrect',$('correct').textContent);
+
+function del() {
+  if (errorState) {
+    clearAll();
+    return;
+  }
+
+  if (justCalculated) {
+    expression = expression.split('=').slice(0, -1).join('=');
+    justCalculated = false;
+  }
+
+  expression = expression.slice(0, -1);
+  show();
 }
+
+window.digit = digit;
+window.op = op;
+window.equals = equals;
+window.clearAll = clearAll;
+window.del = del;
+
+show();
 </script>
+
 </body>
 </html>
 
