@@ -110,127 +110,87 @@ button.key:active{background:#ddd}
 </main>
 
 
+
 <script>
 const display = document.getElementById('display');
 
-let current = '0';
-let stored = null;
-let operator = null;
-let fresh = false;
-let expression = '0';
-let leftText = '';
+let expression = '';
+let justCalculated = false;
 
 function show() {
-  display.textContent = expression;
+  display.textContent = expression || '0';
 }
 
-
 function digit(n) {
-  if (current === 'Error') clearAll();
-
-  if (fresh) {
-    if (operator !== null) {
-      current = '0';
-    } else {
-      current = '0';
-      stored = null;
-      leftText = '';
-    }
-    fresh = false;
+  if (justCalculated) {
+    expression = '';
+    justCalculated = false;
   }
 
-  if (n === '.' && current.includes('.')) return;
+  if (expression === 'Error') expression = '';
 
-  if (n === '.') {
-    current = current === '0' ? '0.' : current + '.';
-  } else {
-    current = current === '0' ? n : current + n;
-  }
-
-  if (operator !== null) {
-    const symbols = {'+': '+', '-': '−', '*': '×', '/': '÷'};
-    expression = leftText + symbols[operator] + current;
-  } else {
-    expression = current;
-  }
-
+  expression += n;
   show();
 }
 
-
-function calculate(a, b, o) {
-  if (o === '+') return a + b;
-  if (o === '-') return a - b;
-  if (o === '*') return a * b;
-  if (o === '/') return b === 0 ? null : a / b;
-  return b;
-}
-
 function op(o) {
-  if (current === 'Error') clearAll();
+  if (justCalculated) justCalculated = false;
 
-  if (operator !== null && !fresh) {
-    equals();
+  if (expression === 'Error') expression = '';
+
+  const symbol = {'+': '+', '-': '−', '*': '×', '/': '÷'}[o];
+
+  if (!expression && o !== '-') return;
+
+  if (/[+\-×÷.]$/.test(expression)) {
+    expression = expression.slice(0, -1);
   }
 
-  stored = Number(current);
-  leftText = current;
-  operator = o;
-  fresh = true;
-
-  const symbols = {'+': '+', '-': '−', '*': '×', '/': '÷'};
-  expression = leftText + symbols[o];
+  expression += symbol;
   show();
 }
 
 function equals() {
-  if (operator === null || stored === null || fresh) return;
+  if (!expression || expression === 'Error') return;
 
-  const a = stored;
-  const b = Number(current);
-  const symbols = {'+': '+', '-': '−', '*': '×', '/': '÷'};
-  const left = leftText;
-  const sign = symbols[operator];
-  const right = current;
-  const result = calculate(a, b, operator);
+  try {
+    const cleaned = expression
+      .replace(/×/g, '*')
+      .replace(/÷/g, '/')
+      .replace(/−/g, '-');
 
-  if (result === null || !Number.isFinite(result)) {
-    current = 'Error';
-    expression = 'Cannot divide by zero';
-  } else {
-    current = String(Number(result.toPrecision(10)));
-    expression = left + sign + right + '=' + current;
+    if (!/^[0-9+\-*/.() ]+$/.test(cleaned)) return;
+    if (/[+\-*/.]$/.test(cleaned)) return;
+
+    const result = Function('"use strict"; return (' + cleaned + ')')();
+
+    if (!Number.isFinite(result)) {
+      expression = 'Error';
+    } else {
+      expression = String(Number(result.toPrecision(10)));
+    }
+
+    justCalculated = true;
+    show();
+  } catch {
+    expression = 'Error';
+    justCalculated = true;
+    show();
   }
-
-  stored = null;
-  operator = null;
-  fresh = true;
-  show();
 }
 
 function clearAll() {
-  current = '0';
-  stored = null;
-  operator = null;
-  fresh = false;
-  expression = '0';
-  leftText = '';
+  expression = '';
+  justCalculated = false;
   show();
 }
 
 function del() {
-  if (fresh || current === 'Error') {
-    current = '0';
-    fresh = false;
+  if (justCalculated || expression === 'Error') {
+    expression = '';
+    justCalculated = false;
   } else {
-    current = current.length > 1 ? current.slice(0, -1) : '0';
-  }
-
-  if (operator !== null) {
-    const symbols = {'+': '+', '-': '−', '*': '×', '/': '÷'};
-    expression = leftText + symbols[operator] + current;
-  } else {
-    expression = current;
+    expression = expression.slice(0, -1);
   }
 
   show();
@@ -244,6 +204,7 @@ window.del = del;
 
 show();
 </script>
+
 
 
 </body>
