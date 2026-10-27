@@ -126,22 +126,38 @@ function calculate(a,b,o){
  if(o==='/')return b===0?null:a/b;
  return b;
 }
+
 function op(o){
- if(operator&&!fresh)equals();
- stored=Number(current);operator=o;fresh=true;
+ if(current==='Error') clearAll();
+
+ if(operator!==null && !fresh){
+   equals();
+ }
+
+ stored=Number(current);
+ operator=o;
+ fresh=true;
 }
+
 function equals(){
- if(operator===null||stored===null)return;
- const result=calculate(stored,Number(current),operator);
- current=result===null?'Error':String(Number(result.toPrecision(10)));
- stored=null;operator=null;fresh=true;show();
-}
-function clearAll(){current='0';stored=null;operator=null;fresh=false;show()}
-function del(){
- if(fresh){current='0';fresh=false}
- else current=current.length>1?current.slice(0,-1):'0';
+ if(operator===null || stored===null || current==='Error') return;
+
+ const a=stored;
+ const b=Number(current);
+ const result=calculate(a,b,operator);
+
+ if(result===null || !Number.isFinite(result)){
+   current='Error';
+ } else {
+   current=String(Number(result.toPrecision(10)));
+ }
+
+ stored=null;
+ operator=null;
+ fresh=true;
  show();
 }
+
 </script>
 </body>
 </html>
