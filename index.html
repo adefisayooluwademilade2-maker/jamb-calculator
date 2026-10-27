@@ -108,75 +108,115 @@ button.key:active{background:#ddd}
 </div>
 
 </main>
+
 <script>
-const display=document.getElementById('display');
-let current='0', stored=null, operator=null, fresh=false;
-function show(){display.textContent=current}
-function digit(n){
- if(fresh){current='0';fresh=false}
- if(n==='.'&&current.includes('.'))return;
- if(n==='.'&&current==='0'){current='0.';show();return}
- current=current==='0'&&n!=='.'?n:current+n;
- show();
-}
-function calculate(a,b,o){
- if(o==='+')return a+b;
- if(o==='-')return a-b;
- if(o==='*')return a*b;
- if(o==='/')return b===0?null:a/b;
- return b;
+const display = document.getElementById('display');
+
+let current = '0';
+let stored = null;
+let operator = null;
+let fresh = false;
+
+function show() {
+  display.textContent = current;
 }
 
-function op(o){
- if(current==='Error') clearAll();
+function digit(n) {
+  if (current === 'Error') clearAll();
 
- if(operator!==null && !fresh){
-   equals();
- }
-
- stored=Number(current);
- operator=o;
- fresh=true;
-}
-
-function equals(){
- if(operator===null || stored===null || current==='Error') return;
-
- const a=stored;
- const b=Number(current);
- const result=calculate(a,b,operator);
-
- if(result===null || !Number.isFinite(result)){
-   current='Error';
- } else {
-   current=String(Number(result.toPrecision(10)));
- }
-
- stored=null;
- operator=null;
- fresh=true;
- show();
-}
-
-  function clearAll(){
- current='0';
- stored=null;
- operator=null;
- fresh=false;
- show();
-}
-
-function del(){
- if(fresh){
-   current='0';
-   fresh=false;
- } else {
-   current=current.length>1?current.slice(0,-1):'0';
- }
- show();
+  if (fresh) {
+    current = '0';
+    fresh = false;
   }
-  
+
+  if (n === '.' && current.includes('.')) return;
+
+  if (n === '.') {
+    if (current === '0') {
+      current = '0.';
+      show();
+      return;
+    }
+  }
+
+  current = current === '0' && n !== '.'
+    ? n
+    : current + n;
+
+  show();
+}
+
+function calculate(a, b, o) {
+  if (o === '+') return a + b;
+  if (o === '-') return a - b;
+  if (o === '*') return a * b;
+  if (o === '/') return b === 0 ? null : a / b;
+  return b;
+}
+
+function op(o) {
+  if (current === 'Error') clearAll();
+
+  if (operator !== null && !fresh) {
+    equals();
+  }
+
+  stored = Number(current);
+  operator = o;
+  fresh = true;
+}
+
+function equals() {
+  if (operator === null || stored === null) return;
+
+  const result = calculate(
+    stored,
+    Number(current),
+    operator
+  );
+
+  if (result === null || !Number.isFinite(result)) {
+    current = 'Error';
+  } else {
+    current = String(Number(result.toPrecision(10)));
+  }
+
+  stored = null;
+  operator = null;
+  fresh = true;
+  show();
+}
+
+function clearAll() {
+  current = '0';
+  stored = null;
+  operator = null;
+  fresh = false;
+  show();
+}
+
+function del() {
+  if (current === 'Error' || fresh) {
+    current = '0';
+    fresh = false;
+  } else {
+    current = current.length > 1
+      ? current.slice(0, -1)
+      : '0';
+  }
+
+  show();
+}
+
+window.digit = digit;
+window.op = op;
+window.equals = equals;
+window.clearAll = clearAll;
+window.del = del;
+
+show();
 </script>
+
 </body>
 </html>
   
