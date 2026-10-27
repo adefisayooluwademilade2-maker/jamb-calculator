@@ -163,6 +163,15 @@ function op(o) {
 
   stored = Number(current);
   operator = o;
+
+  const symbol = {
+    '+': '+',
+    '-': '−',
+    '*': '×',
+    '/': '÷'
+  };
+
+  display.textContent = current + ' ' + symbol[o];
   fresh = true;
 }
 
