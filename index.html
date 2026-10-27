@@ -1,6 +1,6 @@
 
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
   <meta name="google-site-verification"
     content="Pa09ezhUhu7f5NaU9DvS6R2dy6RAX7-TgHwWaQny-5g" />
@@ -68,7 +68,7 @@ let justCalculated = false;
 let errorState = false;
 
 function render() {
-  display.textContent = expression || "0";
+  display.textContent = expression.replace(/\*/g, "×").replace(/\//g, "÷") || "0";
 }
 
 function addValue(value) {
