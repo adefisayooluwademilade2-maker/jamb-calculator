@@ -158,6 +158,24 @@ function equals(){
  show();
 }
 
+  function clearAll(){
+ current='0';
+ stored=null;
+ operator=null;
+ fresh=false;
+ show();
+}
+
+function del(){
+ if(fresh){
+   current='0';
+   fresh=false;
+ } else {
+   current=current.length>1?current.slice(0,-1):'0';
+ }
+ show();
+  }
+  
 </script>
 </body>
 </html>
