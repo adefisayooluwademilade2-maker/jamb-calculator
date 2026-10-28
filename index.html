@@ -188,28 +188,24 @@
     }
 
     
+
 function appendValue(value) {
   if (justCalculated) {
     expression = "";
     justCalculated = false;
   }
 
+  if (value === ".") {
+    const currentNumber = expression.split(/[+\-*/]/).pop();
+
+    if (currentNumber.includes(".")) return;
+
+    if (!currentNumber) expression += "0";
+  }
+
   expression += value;
   render();
 }
-
-
-      if (value === ".") {
-        const currentNumber = expression.split(/[+\-*/]/).pop();
-
-        if (currentNumber.includes(".")) return;
-
-        if (!currentNumber) expression += "0";
-      }
-
-      expression += value;
-      render();
-    }
 
     
 function calculate() {
