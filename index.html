@@ -187,26 +187,17 @@
       render();
     }
 
-    function appendValue(value) {
-      const operators = ["+", "-", "*", "/"];
+    
+function appendValue(value) {
+  if (justCalculated) {
+    expression = "";
+    justCalculated = false;
+  }
 
-      if (justCalculated && !operators.includes(value) && value !== ".") {
-        expression = "";
-      }
+  expression += value;
+  render();
+}
 
-      justCalculated = false;
-
-      if (operators.includes(value)) {
-        if (!expression && value !== "-") return;
-
-        if (operators.includes(expression.slice(-1))) {
-          expression = expression.slice(0, -1);
-        }
-
-        expression += value;
-        render();
-        return;
-      }
 
       if (value === ".") {
         const currentNumber = expression.split(/[+\-*/]/).pop();
@@ -220,44 +211,49 @@
       render();
     }
 
-    function calculate() {
-      if (!expression) return;
+    
+function calculate() {
+  if (!expression) return;
 
-      const safeExpression = expression;
+  const safeExpression = expression;
 
-      if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
-        display.textContent = "Invalid input";
-        return;
-      }
+  function showError() {
+    expression = "";
+    justCalculated = false;
+    display.textContent = "Error";
 
-      if (/[+\-*/.]$/.test(safeExpression)) {
-        display.textContent = "Complete the calculation";
-        return;
-      }
+    setTimeout(() => {
+      display.textContent = "0";
+    }, 1000);
+  }
 
-      try {
-        const result = Function(
-          '"use strict"; return (' + safeExpression + ')'
-        )();
+  if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
+    showError();
+    return;
+  }
 
-        if (typeof result !== "number" || !Number.isFinite(result)) {
-          display.textContent = "Cannot divide by zero";
-          expression = "";
-          justCalculated = false;
-          return;
-        }
+  if (/[+\-*/.]$/.test(safeExpression)) {
+    showError();
+    return;
+  }
 
-        expression = String(
-          Number(result.toPrecision(12))
-        );
+  try {
+    const result = Function(
+      '"use strict"; return (' + safeExpression + ')'
+    )();
 
-        justCalculated = true;
-        render();
-      } catch (error) {
-        display.textContent = "Invalid calculation";
-      }
+    if (typeof result !== "number" || !Number.isFinite(result)) {
+      showError();
+      return;
     }
 
+    expression = String(Number(result.toPrecision(12)));
+    justCalculated = true;
+    render();
+  } catch (error) {
+    showError();
+  }
+}
     keys.addEventListener("click", function(event) {
       const button = event.target.closest("button");
 
