@@ -2,362 +2,299 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#e9edf2">
-<meta name="description" content="A free online JAMB basic calculator for practising calculations before your exam.">
-<title>JAMB Calculator</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-site-verification" content="Pa09ezhUhu7f5NaU9DvS6R2dy6RAX7-TgHwWaQny-5g">
+  <meta name="description" content="JAMB Calculator is a free online calculator for quick and easy calculations. Add, subtract, multiply and divide on your phone, tablet or computer.">
+  <meta name="robots" content="index, follow">
+  <meta property="og:title" content="JAMB Calculator | Free Online Calculator">
+  <meta property="og:description" content="Use JAMB Calculator for quick, easy everyday calculations on any device.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://adefisayooluwademilade2-maker.github.io/jamb-calculator/">
 
-<style>
-* {
-  box-sizing: border-box;
-}
+  <title>JAMB Calculator | Free Online Calculator</title>
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: #e9edf2;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 12px;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.calculator {
-  width: min(340px, 100%);
-  background: #f5f5f5;
-  border: 1px solid #aaa;
-  box-shadow: 0 5px 18px #0002;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 16px;
+      background: #e9edf2;
+      font-family: Arial, sans-serif;
+      color: #222;
+    }
 
-.titlebar {
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-left: 12px;
-  background: #ddd;
-  font-size: 14px;
-  color: #222;
-}
+    .calculator {
+      width: 100%;
+      max-width: 370px;
+      background: #f5f5f5;
+      border: 1px solid #bfc3c7;
+      box-shadow: 0 3px 12px #0002;
+      overflow: hidden;
+    }
 
-.close {
-  height: 40px;
-  width: 46px;
-  border: 0;
-  background: #e65d49;
-  color: white;
-  font-size: 22px;
-  cursor: pointer;
-}
+    .titlebar {
+      height: 43px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-left: 13px;
+      background: #ddd;
+      border-bottom: 1px solid #c6c6c6;
+      font-size: 15px;
+      font-weight: bold;
+    }
 
-.display {
-  min-height: 90px;
-  background: white;
-  padding: 22px 12px;
-  text-align: right;
-  font-size: 30px;
-  color: #222;
-  overflow-x: auto;
-  overflow-y: hidden;
-  white-space: nowrap;
-  scrollbar-width: thin;
-  overflow-wrap: normal;
-}
+    .close {
+      width: 43px;
+      height: 42px;
+      border: 0;
+      border-radius: 0;
+      background: #e65d49;
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+    }
 
-.keys {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-template-rows: repeat(5, 58px);
-  gap: 5px;
-  padding: 8px;
-}
+    .display {
+      min-height: 92px;
+      padding: 18px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      background: white;
+      border-bottom: 1px solid #d4d4d4;
+      font-size: 36px;
+      text-align: right;
+      overflow-wrap: anywhere;
+      overflow: hidden;
+    }
 
-button.key {
-  min-width: 0;
-  border: 1px solid #ccc;
-  background: #fafafa;
-  font-size: 21px;
-  color: #222;
-  border-radius: 2px;
-  cursor: pointer;
-  touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
-}
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 7px;
+      padding: 10px;
+      background: #f5f5f5;
+    }
 
-button.key:active {
-  background: #ddd;
-}
+    button.key {
+      min-height: 58px;
+      border: 1px solid #d0d0d0;
+      border-radius: 2px;
+      background: #fafafa;
+      color: #222;
+      font-size: 22px;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-button:focus-visible {
-  outline: 2px solid #2458a6;
-  outline-offset: 2px;
-}
+    button.key:active {
+      filter: brightness(.93);
+    }
 
-.operator {
-  background: #e7e7e7 !important;
-}
+    button.operator,
+    button.clear,
+    button.del {
+      background: #e7e7e7;
+    }
 
-.equals {
-  background: #ee8b26 !important;
-  color: white !important;
-  grid-column: 4;
-  grid-row: 4 / span 2;
-}
+    button.equals {
+      background: #008751;
+      border-color: #007343;
+      color: white;
+      font-weight: bold;
+      grid-row: span 2;
+      min-height: 123px;
+    }
 
-.zero {
-  grid-column: 1 / span 2;
-}
-</style>
+    button.zero {
+      grid-column: span 2;
+    }
+
+    .note {
+      margin: 0;
+      padding: 0 10px 10px;
+      text-align: center;
+      color: #666;
+      font-size: 11px;
+    }
+  </style>
 </head>
 
 <body>
-<main class="calculator" aria-label="Basic calculator">
+  <main class="calculator">
+    <div class="titlebar">
+      <span>JAMB Calculator</span>
+      <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
+    </div>
 
-  <div class="titlebar">
-    <span>Jamb Calculator</span>
-    <button class="close" onclick="clearAll()" aria-label="Clear calculator">×</button>
-  </div>
+    <div class="display" id="display" aria-live="polite">0</div>
 
-  <div class="display" id="display"
-       role="status" aria-live="polite"
-       aria-atomic="true">0</div>
+    <div class="keys" id="keys">
+      <button class="key clear" data-action="clear">C</button>
+      <button class="key del" data-action="delete">Del</button>
+      <button class="key operator" data-value="/">÷</button>
+      <button class="key operator" data-value="*">×</button>
 
-  <div class="keys">
-    <button class="key" onclick="clearAll()">C</button>
-    <button class="key" onclick="del()">Del</button>
-    <button class="key operator" onclick="op('+')">+</button>
-    <button class="key operator" onclick="op('*')">×</button>
+      <button class="key" data-value="7">7</button>
+      <button class="key" data-value="8">8</button>
+      <button class="key" data-value="9">9</button>
+      <button class="key operator" data-value="-">−</button>
 
-    <button class="key" onclick="digit('7')">7</button>
-    <button class="key" onclick="digit('8')">8</button>
-    <button class="key" onclick="digit('9')">9</button>
-    <button class="key operator" onclick="op('/')">÷</button>
+      <button class="key" data-value="4">4</button>
+      <button class="key" data-value="5">5</button>
+      <button class="key" data-value="6">6</button>
+      <button class="key operator" data-value="+">+</button>
 
-    <button class="key" onclick="digit('4')">4</button>
-    <button class="key" onclick="digit('5')">5</button>
-    <button class="key" onclick="digit('6')">6</button>
-    <button class="key operator" onclick="op('-')">−</button>
+      <button class="key" data-value="1">1</button>
+      <button class="key" data-value="2">2</button>
+      <button class="key" data-value="3">3</button>
+      <button class="key equals" data-action="calculate">=</button>
 
-    <button class="key" onclick="digit('1')">1</button>
-    <button class="key" onclick="digit('2')">2</button>
-    <button class="key" onclick="digit('3')">3</button>
-    <button class="key equals" onclick="equals()">=</button>
+      <button class="key zero" data-value="0">0</button>
+      <button class="key" data-value=".">.</button>
+    </div>
 
-    <button class="key zero" onclick="digit('0')">0</button>
-    <button class="key" onclick="digit('.')">.</button>
-  </div>
+    <p class="note">JAMB Calculator · Free online calculator</p>
+  </main>
 
-</main>
+  <script>
+    const display = document.getElementById("display");
+    const keys = document.getElementById("keys");
+    const closeBtn = document.getElementById("closeBtn");
 
-<script>
-'use strict';
+    let expression = "";
+    let justCalculated = false;
 
-const display = document.getElementById('display');
-
-let expression = '';
-let justCalculated = false;
-let errorState = false;
-
-function show() {
-  display.textContent = expression || '0';
-  display.scrollLeft = display.scrollWidth;
-}
-
-function clearAll() {
-  expression = '';
-  justCalculated = false;
-  errorState = false;
-  show();
-}
-
-function digit(n) {
-  if (errorState || justCalculated) {
-    expression = '';
-    errorState = false;
-    justCalculated = false;
-  }
-
-  if (n === '.') {
-    const parts = expression.split(/[+\-×÷]/);
-    const lastNumber = parts[parts.length - 1];
-
-    if (lastNumber.includes('.')) return;
-
-    if (lastNumber === '') {
-      expression += '0.';
-    } else {
-      expression += '.';
-    }
-  } else {
-    expression += n;
-  }
-
-  show();
-}
-
-function op(o) {
-  if (errorState) clearAll();
-
-  if (justCalculated) {
-    const answer = expression.split('=').pop();
-    expression = answer;
-    justCalculated = false;
-  }
-
-  const symbol = {
-    '+': '+',
-    '-': '−',
-    '*': '×',
-    '/': '÷'
-  }[o];
-
-  if (!expression) {
-    if (o === '-') {
-      expression = '−';
-      show();
-    }
-    return;
-  }
-
-  if (/[+\-×÷.]$/.test(expression)) {
-    expression = expression.slice(0, -1);
-  }
-
-  expression += symbol;
-  show();
-}
-
-function evaluateExpression(source) {
-  const input = source
-    .replace(/×/g, '*')
-    .replace(/÷/g, '/')
-    .replace(/−/g, '-')
-    .replace(/\s/g, '');
-
-  let position = 0;
-
-  function parseNumber() {
-    const remaining = input.slice(position);
-    const match = remaining.match(/^(?:\d+\.?\d*|\.\d+)/);
-
-    if (!match) {
-      throw new Error('Invalid number');
+    function render() {
+      display.textContent =
+        expression.replace(/\*/g, "×").replace(/\//g, "÷") || "0";
     }
 
-    position += match[0].length;
-    return Number(match[0]);
-  }
-
-  function parseFactor() {
-    if (input[position] === '+') {
-      position++;
-      return parseFactor();
+    function clearAll() {
+      expression = "";
+      justCalculated = false;
+      render();
     }
 
-    if (input[position] === '-') {
-      position++;
-      return -parseFactor();
+    function appendValue(value) {
+      const operators = ["+", "-", "*", "/"];
+
+      if (justCalculated && !operators.includes(value) && value !== ".") {
+        expression = "";
+      }
+
+      justCalculated = false;
+
+      if (operators.includes(value)) {
+        if (!expression && value !== "-") return;
+
+        if (operators.includes(expression.slice(-1))) {
+          expression = expression.slice(0, -1);
+        }
+
+        expression += value;
+        render();
+        return;
+      }
+
+      if (value === ".") {
+        const currentNumber = expression.split(/[+\-*/]/).pop();
+
+        if (currentNumber.includes(".")) return;
+
+        if (!currentNumber) expression += "0";
+      }
+
+      expression += value;
+      render();
     }
 
-    return parseNumber();
-  }
+    function calculate() {
+      if (!expression) return;
 
-  function parseTerm() {
-    let value = parseFactor();
+      const safeExpression = expression;
 
-    while (input[position] === '*' || input[position] === '/') {
-      const operator = input[position++];
-      const next = parseFactor();
+      if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
+        display.textContent = "Invalid input";
+        return;
+      }
 
-      if (operator === '/') {
-        if (next === 0) throw new Error('Cannot divide by zero');
-        value /= next;
-      } else {
-        value *= next;
+      if (/[+\-*/.]$/.test(safeExpression)) {
+        display.textContent = "Complete the calculation";
+        return;
+      }
+
+      try {
+        const result = Function(
+          '"use strict"; return (' + safeExpression + ')'
+        )();
+
+        if (typeof result !== "number" || !Number.isFinite(result)) {
+          display.textContent = "Cannot divide by zero";
+          expression = "";
+          justCalculated = false;
+          return;
+        }
+
+        expression = String(
+          Number(result.toPrecision(12))
+        );
+
+        justCalculated = true;
+        render();
+      } catch (error) {
+        display.textContent = "Invalid calculation";
       }
     }
 
-    return value;
-  }
+    keys.addEventListener("click", function(event) {
+      const button = event.target.closest("button");
 
-  function parseSum() {
-    let value = parseTerm();
+      if (!button) return;
 
-    while (input[position] === '+' || input[position] === '-') {
-      const operator = input[position++];
-      const next = parseTerm();
-
-      if (operator === '+') {
-        value += next;
-      } else {
-        value -= next;
+      if (button.dataset.action === "clear") {
+        clearAll();
+      } else if (button.dataset.action === "delete") {
+        expression = expression.slice(0, -1);
+        justCalculated = false;
+        render();
+      } else if (button.dataset.action === "calculate") {
+        calculate();
+      } else if (button.dataset.value !== undefined) {
+        appendValue(button.dataset.value);
       }
-    }
+    });
 
-    return value;
-  }
+    closeBtn.addEventListener("click", clearAll);
 
-  const result = parseSum();
-
-  if (position !== input.length || !Number.isFinite(result)) {
-    throw new Error('Invalid calculation');
-  }
-
-  return result;
-}
-
-function equals() {
-  if (!expression || errorState || justCalculated) return;
-
-  if (/[+\-×÷.]$/.test(expression)) return;
-
-  const original = expression;
-
-  try {
-    const result = evaluateExpression(original);
-    const answer = String(Number(result.toPrecision(10)));
-
-    expression = original + '=' + answer;
-    justCalculated = true;
-    show();
-  } catch (error) {
-    expression = error.message === 'Cannot divide by zero'
-      ? 'Cannot divide by zero'
-      : 'Error';
-
-    errorState = true;
-    justCalculated = false;
-    show();
-  }
-}
-
-function del() {
-  if (errorState) {
-    clearAll();
-    return;
-  }
-
-  if (justCalculated) {
-    expression = expression.split('=').slice(0, -1).join('=');
-    justCalculated = false;
-  }
-
-  expression = expression.slice(0, -1);
-  show();
-}
-
-window.digit = digit;
-window.op = op;
-window.equals = equals;
-window.clearAll = clearAll;
-window.del = del;
-
-show();
-</script>
-
+    document.addEventListener("keydown", function(event) {
+      if (/^[0-9.]$/.test(event.key)) {
+        appendValue(event.key);
+      } else if (["+", "-", "*", "/"].includes(event.key)) {
+        appendValue(event.key);
+      } else if (event.key === "Enter" || event.key === "=") {
+        event.preventDefault();
+        calculate();
+      } else if (event.key === "Backspace") {
+        expression = expression.slice(0, -1);
+        justCalculated = false;
+        render();
+      } else if (event.key === "Escape" || event.key === "Delete") {
+        clearAll();
+      }
+    });
+  </script>
 </body>
 </html>
 
