@@ -34,127 +34,244 @@
   </script>
   
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    
+* {
+  box-sizing: border-box;
+}
 
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 16px;
-      background: #e9edf2;
-      font-family: Arial, sans-serif;
-      color: #222;
-    }
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: #e9edf2;
+  font-family: Arial, sans-serif;
+  color: #222;
+  transition: background .3s, color .3s;
+}
 
-    .calculator {
-      width: 100%;
-      max-width: 370px;
-      background: #f5f5f5;
-      border: 1px solid #bfc3c7;
-      box-shadow: 0 3px 12px #0002;
-      overflow: hidden;
-    }
+.calculator {
+  width: 100%;
+  max-width: 570px;
+  background: #f5f5f5;
+  border: 1px solid #c5cbd2;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px #0002;
+  overflow: hidden;
+  transition: background .3s, border .3s;
+}
 
-    .titlebar {
-      height: 43px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-left: 13px;
-      background: #ddd;
-      border-bottom: 1px solid #c6c6c6;
-      font-size: 15px;
-      font-weight: bold;
-    }
+.titlebar {
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  padding: 12px 16px 12px 25px;
+  background: #e4e7eb;
+  border-bottom: 1px solid #c6cbd1;
+  font-size: 21px;
+  font-weight: bold;
+  border-radius: 15px 15px 0 0;
+}
 
-    .close {
-      width: 43px;
-      height: 42px;
-      border: 0;
-      border-radius: 0;
-      background: #e65d49;
-      color: white;
-      font-size: 24px;
-      cursor: pointer;
-    }
+.theme-toggle {
+  width: 65px;
+  height: 55px;
+  margin-left: auto;
+  margin-right: 12px;
+  border: 1px solid #c5cbd2;
+  border-radius: 12px;
+  background: #f5f5f5;
+  color: #222;
+  font-size: 26px;
+  cursor: pointer;
+}
 
-    .display {
-      min-height: 92px;
-      padding: 18px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      background: white;
-      border-bottom: 1px solid #d4d4d4;
-      font-size: 36px;
-      text-align: right;
-      overflow-wrap: anywhere;
-      overflow: hidden;
-    }
+.close {
+  width: 60px;
+  height: 55px;
+  border: 0;
+  border-radius: 10px;
+  background: #e65d49;
+  color: white;
+  font-size: 29px;
+  cursor: pointer;
+}
 
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 7px;
-      padding: 10px;
-      background: #f5f5f5;
-    }
+.display {
+  min-height: 135px;
+  margin: 12px;
+  padding: 25px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  background: white;
+  border: 1px solid #d4d8dc;
+  border-radius: 7px;
+  font-size: 48px;
+  text-align: right;
+  overflow-wrap: anywhere;
+  overflow: hidden;
+}
 
-    button.key {
-      min-height: 58px;
-      border: 1px solid #d0d0d0;
-      border-radius: 2px;
-      background: #fafafa;
-      color: #222;
-      font-size: 22px;
-      cursor: pointer;
-      touch-action: manipulation;
-      user-select: none;
-      -webkit-user-select: none;
-    }
+.keys {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 10px;
+  padding: 12px 20px;
+  background: #f5f5f5;
+}
 
-    button.key:active {
-      filter: brightness(.93);
-    }
+button.key {
+  min-height: 90px;
+  border: 1px solid #d0d4d8;
+  border-radius: 10px;
+  background: #fafafa;
+  color: #222;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: pointer;
+  touch-action: manipulation;
+  user-select: none;
+  -webkit-user-select: none;
+}
 
-    button.operator,
-    button.clear,
-    button.del {
-      background: #e7e7e7;
-    }
+button.key:active {
+  filter: brightness(.93);
+}
 
-    button.equals {
+button.operator,
+button.clear,
+button.del {
+  background: #e7e7e7;
+}
+
+button.equals {
   background: #ee8b26;
-  border-color: #d97917;
+  border: 1px solid #d97917;
   color: white;
   font-weight: bold;
   grid-row: span 2;
-  min-height: 123px;
-      }
+  min-height: 190px;
+  border-radius: 10px;
+}
 
-    button.zero {
-      grid-column: span 2;
-    }
+button.zero {
+  grid-column: span 2;
+}
 
-    .note {
-      margin: 0;
-      padding: 0 10px 10px;
-      text-align: center;
-      color: #666;
-      font-size: 11px;
-    }
+.note {
+  margin: 0;
+  padding: 15px 10px 20px;
+  text-align: center;
+  color: #666;
+  font-size: 14px;
+}
+
+/* DARK MODE */
+
+body.dark-mode {
+  background: #17191c;
+  color: #f5f5f5;
+}
+
+body.dark-mode .calculator {
+  background: #24272b;
+  border-color: #111;
+}
+
+body.dark-mode .titlebar {
+  background: #292d34;
+  color: white;
+  border-color: #41464e;
+}
+
+body.dark-mode .display {
+  background: #181a1d;
+  color: white;
+  border-color: #444;
+}
+
+body.dark-mode .keys {
+  background: #24272b;
+}
+
+body.dark-mode button.key {
+  background: #363a41;
+  color: white;
+  border-color: #555b63;
+}
+
+body.dark-mode button.operator,
+body.dark-mode button.clear,
+body.dark-mode button.del {
+  background: #444951;
+  color: white;
+}
+
+body.dark-mode button.equals {
+  background: #ee8b26;
+  color: white;
+}
+
+body.dark-mode .note {
+  color: #aaa;
+}
+
+body.dark-mode .theme-toggle {
+  background: #41464e;
+  color: white;
+  border-color: #555b63;
+}
+
+/* SMALL PHONE SCREENS */
+
+@media (max-width: 420px) {
+  .calculator {
+    max-width: 370px;
+  }
+
+  .titlebar {
+    min-height: 55px;
+    padding: 8px 10px 8px 14px;
+    font-size: 17px;
+  }
+
+  .theme-toggle,
+  .close {
+    width: 43px;
+    height: 42px;
+  }
+
+  .display {
+    min-height: 92px;
+    font-size: 36px;
+  }
+
+  button.key {
+    min-height: 58px;
+    font-size: 22px;
+  }
+
+  button.equals {
+    min-height: 123px;
+  }
+}
+
   </style>
 </head>
 
 <body>
   <main class="calculator">
     <div class="titlebar">
-      <span>JAMB Calculator</span>
-      <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
+  <span>JAMB Calculator</span>
+
+  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+    🌙
+  </button>
+
+  <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
     </div>
 
     <div class="display" id="display" aria-live="polite">0</div>
