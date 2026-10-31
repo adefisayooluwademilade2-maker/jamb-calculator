@@ -1,22 +1,24 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  
-<!-- Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-HWWEW3RD5Q"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-HWWEW3RD5Q');
-</script>
-  
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWWEW3RD5Q"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-HWWEW3RD5Q');
+  </script>
+
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
   <link rel="canonical" href="https://jamb-calculator.pages.dev/">
+
   <meta name="google-site-verification" content="Pa09ezhUhu7f5NaU9DvS6R2dy6RAX7-TgHwWaQny-5g">
+
   <meta name="description" content="Use this free online JAMB calculator to practise calculations before your JAMB exam. Simple, fast and easy to use on your phone, tablet or computer.">
+
   <meta property="og:title" content="JAMB Calculator | Free Online Calculator">
   <meta property="og:description" content="Use JAMB Calculator for quick, easy everyday calculations on any device.">
   <meta property="og:type" content="website">
@@ -25,305 +27,266 @@
   <title>JAMB Calculator | Free Online Calculator</title>
 
   <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "WebSite",
-  "name": "JAMB Calculator",
-  "alternateName": "JAMB Calculator | Free Online Calculator",
-  "url": "https://jamb-calculator.pages.dev/"
-}
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "JAMB Calculator",
+    "alternateName": "JAMB Calculator | Free Online Calculator",
+    "url": "https://jamb-calculator.pages.dev/"
+  }
   </script>
-  
+
   <style>
-    
-* {
-  box-sizing: border-box;
-}
+    * {
+      box-sizing: border-box;
+    }
 
-body {
-  margin: 0;
-  min-height: 100vh;
-  height: auto;
-  overflow-y: auto;
-  box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-start;
-  align-items: center;
-  padding: 20px;
-  background: #e9edf2;
-  font-family: Arial, sans-serif;
-  color: #222;
-  transition: background .3s, color .3s;
-  overflow-x: hidden;
-}
-    
-.calculator {
-  width: 100%;
-  max-width: 570px;
-  background: #f5f5f5;
-  border: 1px solid #c5cbd2;
-  border-radius: 15px;
-  box-shadow: 0 8px 25px #0002;
-  overflow: hidden;
-  transition: background .3s, border .3s;
-}
+    body {
+      margin: 0;
+      min-height: 100vh;
+      height: auto;
+      overflow-y: auto;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center;
+      padding: 20px;
+      background: #e9edf2;
+      font-family: Arial, sans-serif;
+      color: #222;
+      transition: background .3s, color .3s;
+    }
 
-.titlebar {
-  min-height: 72px;
-  display: flex;
-  align-items: center;
-  padding: 12px 16px 12px 25px;
-  background: #e4e7eb;
-  border-bottom: 1px solid #c6cbd1;
-  font-size: 21px;
-  font-weight: bold;
-  border-radius: 15px 15px 0 0;
-}
+    .calculator {
+      width: 100%;
+      max-width: 570px;
+      background: #f5f5f5;
+      border: 1px solid #c5cbd2;
+      border-radius: 15px;
+      box-shadow: 0 8px 25px #0002;
+      overflow: hidden;
+      transition: background .3s, border .3s;
+    }
 
-.theme-toggle {
-  width: 65px;
-  height: 55px;
-  margin-left: auto;
-  margin-right: 12px;
-  border: 1px solid #c5cbd2;
-  border-radius: 12px;
-  background: #f5f5f5;
-  color: #222;
-  font-size: 26px;
-  cursor: pointer;
-}
+    .titlebar {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      padding: 12px 16px 12px 25px;
+      background: #e4e7eb;
+      border-bottom: 1px solid #c6cbd1;
+      font-size: 21px;
+      font-weight: bold;
+      border-radius: 15px 15px 0 0;
+    }
 
-.close {
-  width: 60px;
-  height: 55px;
-  border: 0;
-  border-radius: 10px;
-  background: #e65d49;
-  color: white;
-  font-size: 29px;
-  cursor: pointer;
-}
+    .theme-toggle {
+      width: 65px;
+      height: 55px;
+      margin-left: auto;
+      margin-right: 12px;
+      border: 1px solid #c5cbd2;
+      border-radius: 12px;
+      background: #f5f5f5;
+      color: #222;
+      font-size: 26px;
+      cursor: pointer;
+    }
 
-.display {
-  min-height: 135px;
-  margin: 12px;
-  padding: 25px 20px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  background: white;
-  border: 1px solid #d4d8dc;
-  border-radius: 7px;
-  font-size: 48px;
-  text-align: right;
-  overflow-wrap: anywhere;
-  overflow: hidden;
-}
+    .close {
+      width: 60px;
+      height: 55px;
+      border: 0;
+      border-radius: 10px;
+      background: #e65d49;
+      color: white;
+      font-size: 29px;
+      cursor: pointer;
+    }
 
-.keys {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 10px;
-  padding: 12px 20px;
-  background: #f5f5f5;
-}
+    .display {
+      min-height: 135px;
+      margin: 12px;
+      padding: 25px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      background: white;
+      border: 1px solid #d4d8dc;
+      border-radius: 7px;
+      font-size: 48px;
+      text-align: right;
+      overflow-wrap: anywhere;
+      overflow: hidden;
+    }
 
-button.key {
-  min-height: 90px;
-  border: 1px solid #d0d4d8;
-  border-radius: 10px;
-  background: #fafafa;
-  color: #222;
-  font-size: 28px;
-  font-weight: bold;
-  cursor: pointer;
-  touch-action: manipulation;
-  user-select: none;
-  -webkit-user-select: none;
-}
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 10px;
+      padding: 12px 20px;
+      background: #f5f5f5;
+    }
 
-button.key:active {
-  filter: brightness(.93);
-}
+    button.key {
+      min-height: 90px;
+      border: 1px solid #d0d4d8;
+      border-radius: 10px;
+      background: #fafafa;
+      color: #222;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+      touch-action: manipulation;
+      user-select: none;
+      -webkit-user-select: none;
+    }
 
-button.operator,
-button.clear,
-button.del {
-  background: #e7e7e7;
-}
+    button.key:active {
+      filter: brightness(.93);
+    }
 
-button.equals {
-  background: #ee8b26;
-  border: 1px solid #d97917;
-  color: white;
-  font-weight: bold;
-  grid-row: span 2;
-  min-height: 190px;
-  border-radius: 10px;
-}
+    button.operator,
+    button.clear,
+    button.del {
+      background: #e7e7e7;
+    }
 
-button.zero {
-  grid-column: span 2;
-}
+    button.equals {
+      background: #ee8b26;
+      border: 1px solid #d97917;
+      color: white;
+      font-weight: bold;
+      grid-row: span 2;
+      min-height: 190px;
+      border-radius: 10px;
+    }
 
-.note {
-  margin: 0;
-  padding: 15px 10px 20px;
-  text-align: center;
-  color: #666;
-  font-size: 14px;
-}
+    button.zero {
+      grid-column: span 2;
+    }
 
-/* DARK MODE */
+    .note {
+      margin: 0;
+      padding: 15px 10px 20px;
+      text-align: center;
+      color: #666;
+      font-size: 14px;
+    }
 
-body.dark-mode {
-  background: #17191c;
-  color: #f5f5f5;
-}
+    /* DARK MODE */
 
-body.dark-mode .calculator {
-  background: #24272b;
-  border-color: #111;
-}
+    body.dark-mode {
+      background: #17191c;
+      color: #f5f5f5;
+    }
 
-body.dark-mode .titlebar {
-  background: #292d34;
-  color: white;
-  border-color: #41464e;
-}
+    body.dark-mode .calculator {
+      background: #24272b;
+      border-color: #111;
+    }
 
-body.dark-mode .display {
-  background: #181a1d;
-  color: white;
-  border-color: #444;
-}
+    body.dark-mode .titlebar {
+      background: #292d34;
+      color: white;
+      border-color: #41464e;
+    }
 
-body.dark-mode .keys {
-  background: #24272b;
-}
+    body.dark-mode .display {
+      background: #181a1d;
+      color: white;
+      border-color: #444;
+    }
 
-body.dark-mode button.key {
-  background: #363a41;
-  color: white;
-  border-color: #555b63;
-}
+    body.dark-mode .keys {
+      background: #24272b;
+    }
 
-body.dark-mode button.operator,
-body.dark-mode button.clear,
-body.dark-mode button.del {
-  background: #444951;
-  color: white;
-}
+    body.dark-mode button.key {
+      background: #363a41;
+      color: white;
+      border-color: #555b63;
+    }
 
-body.dark-mode button.equals {
-  background: #ee8b26;
-  color: white;
-}
+    body.dark-mode button.operator,
+    body.dark-mode button.clear,
+    body.dark-mode button.del {
+      background: #444951;
+      color: white;
+    }
 
-body.dark-mode .note {
-  color: #aaa;
-}
+    body.dark-mode button.equals {
+      background: #ee8b26;
+      color: white;
+    }
 
-body.dark-mode .theme-toggle {
-  background: #41464e;
-  color: white;
-  border-color: #555b63;
-}
+    body.dark-mode .note {
+      color: #aaa;
+    }
 
-/* SMALL PHONE SCREENS */
+    body.dark-mode .theme-toggle {
+      background: #41464e;
+      color: white;
+      border-color: #555b63;
+    }
 
-@media (max-width: 420px) {
-  .calculator {
-    max-width: 370px;
-  }
+    /* SMALL PHONE SCREENS */
 
-  .titlebar {
-    min-height: 55px;
-    padding: 8px 10px 8px 14px;
-    font-size: 17px;
-  }
+    @media (max-width: 420px) {
+      .calculator {
+        max-width: 370px;
+      }
 
-  .theme-toggle,
-  .close {
-    width: 43px;
-    height: 42px;
-  }
+      .titlebar {
+        min-height: 55px;
+        padding: 8px 10px 8px 14px;
+        font-size: 17px;
+      }
 
-  .display {
-    min-height: 92px;
-    font-size: 36px;
-  }
+      .theme-toggle,
+      .close {
+        width: 43px;
+        height: 42px;
+      }
 
-  button.key {
-    min-height: 58px;
-    font-size: 22px;
-  }
+      .display {
+        min-height: 92px;
+        font-size: 36px;
+      }
 
-  button.equals {
-    min-height: 123px;
-  }
-}
-    /* INSTALLED APP FULL-SCREEN LAYOUT */
-@media (display-mode: standalone) {
-  body {
-    padding: 8px;
-    justify-content: flex-start;
-  }
+      button.key {
+        min-height: 58px;
+        font-size: 22px;
+      }
 
-  .calculator {
-    width: 100%;
-    max-width: none;
-    border-radius: 12px;
-  }
-
-  .titlebar {
-    min-height: 65px;
-    font-size: 20px;
-  }
-
-  .display {
-    min-height: 115px;
-    font-size: 42px;
-    margin: 10px;
-  }
-
-  .keys {
-    gap: 9px;
-    padding: 10px;
-  }
-
-  button.key {
-    min-height: 75px;
-    font-size: 26px;
-  }
-
-  button.equals {
-    min-height: 159px;
-  }
-}
-
+      button.equals {
+        min-height: 123px;
+      }
+    }
   </style>
-  <link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#087A50">
-  <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 
 <body>
+
   <main class="calculator">
+
     <div class="titlebar">
-  <span>JAMB Calculator</span>
+      <span>JAMB Calculator</span>
 
-  <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
-    🌙
-  </button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
+        🌙
+      </button>
 
-  <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
+      <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">
+        ×
+      </button>
     </div>
 
     <div class="display" id="display" aria-live="polite">0</div>
 
     <div class="keys" id="keys">
+
       <button class="key clear" data-action="clear">C</button>
       <button class="key del" data-action="delete">Del</button>
       <button class="key operator" data-value="/">÷</button>
@@ -346,46 +309,49 @@ body.dark-mode .theme-toggle {
 
       <button class="key zero" data-value="0">0</button>
       <button class="key" data-value=".">.</button>
+
     </div>
 
     <p class="note">JAMB Calculator · Free online calculator</p>
+
   </main>
 
   <footer style="width:100%; box-sizing:border-box; margin-top:0; padding:16px 4px; text-align:center; border-top:1px solid #ccc; font-size:12px; background:transparent; color:inherit;">
 
-  <nav style="display:flex; justify-content:center; align-items:center; flex-wrap:nowrap; gap:clamp(8px, 2vw, 18px); white-space:nowrap;">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="about.html">About Us</a>
-    <a href="contact.html">Contact Us</a>
-    <a href="feedback.html">Feedback</a>
-  </nav>
+    <nav style="display:flex; justify-content:center; align-items:center; flex-wrap:nowrap; gap:clamp(8px, 2vw, 18px); white-space:nowrap;">
+      <a href="privacy.html">Privacy Policy</a>
+      <a href="about.html">About Us</a>
+      <a href="contact.html">Contact Us</a>
+      <a href="feedback.html">Feedback</a>
+    </nav>
 
-  <p style="margin:12px 0 0; white-space:nowrap;">
-    Contact: <a href="mailto:metalarcher62@gmail.com">metalarcher62@gmail.com</a>
-  </p>
+    <p style="margin:12px 0 0; white-space:nowrap;">
+      Contact: <a href="mailto:metalarcher62@gmail.com">metalarcher62@gmail.com</a>
+    </p>
 
-</footer>
-  
+  </footer>
+
   <script>
     const display = document.getElementById("display");
     const keys = document.getElementById("keys");
     const closeBtn = document.getElementById("closeBtn");
-
     const themeToggle = document.getElementById("themeToggle");
 
-if (localStorage.getItem("jambTheme") === "dark") {
-  document.body.classList.add("dark-mode");
-  themeToggle.textContent = "☀️";
-}
+    if (localStorage.getItem("jambTheme") === "dark") {
+      document.body.classList.add("dark-mode");
+      themeToggle.textContent = "☀️";
+    }
 
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark-mode");
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark-mode");
 
-  const isDark = document.body.classList.contains("dark-mode");
-  themeToggle.textContent = isDark ? "☀️" : "🌙";
-  localStorage.setItem("jambTheme", isDark ? "dark" : "light");
-});
-    
+      const isDark = document.body.classList.contains("dark-mode");
+
+      themeToggle.textContent = isDark ? "☀️" : "🌙";
+
+      localStorage.setItem("jambTheme", isDark ? "dark" : "light");
+    });
+
     let expression = "";
     let justCalculated = false;
 
@@ -400,71 +366,72 @@ themeToggle.addEventListener("click", () => {
       render();
     }
 
-function appendValue(value) {
-  if (justCalculated) {
-    if (["+", "-", "*", "/"].includes(value)) {
-      justCalculated = false;
-    } else {
-      expression = "";
-      justCalculated = false;
-    }
-  }
+    function appendValue(value) {
+      if (justCalculated) {
+        if (["+", "-", "*", "/"].includes(value)) {
+          justCalculated = false;
+        } else {
+          expression = "";
+          justCalculated = false;
+        }
+      }
 
-  if (value === ".") {
-    const currentNumber = expression.split(/[+\-*/]/).pop();
+      if (value === ".") {
+        const currentNumber = expression.split(/[+\-*/]/).pop();
 
-    if (currentNumber.includes(".")) return;
+        if (currentNumber.includes(".")) return;
 
-    if (!currentNumber) expression += "0";
-  }
+        if (!currentNumber) expression += "0";
+      }
 
-  expression += value;
-  render();
-}
-
-    
-function calculate() {
-  if (!expression) return;
-
-  const safeExpression = expression;
-
-  function showError() {
-    expression = "";
-    justCalculated = false;
-    display.textContent = "Error";
-
-    setTimeout(() => {
-      display.textContent = "0";
-    }, 1000);
-  }
-
-  if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
-    showError();
-    return;
-  }
-
-  if (/[+\-*/.]$/.test(safeExpression)) {
-    showError();
-    return;
-  }
-
-  try {
-    const result = Function(
-      '"use strict"; return (' + safeExpression + ')'
-    )();
-
-    if (typeof result !== "number" || !Number.isFinite(result)) {
-      showError();
-      return;
+      expression += value;
+      render();
     }
 
-    expression = String(Number(result.toPrecision(12)));
-    justCalculated = true;
-    render();
-  } catch (error) {
-    showError();
-  }
-}
+    function calculate() {
+      if (!expression) return;
+
+      const safeExpression = expression;
+
+      function showError() {
+        expression = "";
+        justCalculated = false;
+        display.textContent = "Error";
+
+        setTimeout(() => {
+          display.textContent = "0";
+        }, 1000);
+      }
+
+      if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
+        showError();
+        return;
+      }
+
+      if (/[+\-*/.]$/.test(safeExpression)) {
+        showError();
+        return;
+      }
+
+      try {
+        const result = Function(
+          '"use strict"; return (' + safeExpression + ')'
+        )();
+
+        if (typeof result !== "number" || !Number.isFinite(result)) {
+          showError();
+          return;
+        }
+
+        expression = String(Number(result.toPrecision(12)));
+        justCalculated = true;
+        render();
+
+      } catch (error) {
+        showError();
+      }
+    }
+
     keys.addEventListener("click", function(event) {
       const button = event.target.closest("button");
 
@@ -472,12 +439,15 @@ function calculate() {
 
       if (button.dataset.action === "clear") {
         clearAll();
+
       } else if (button.dataset.action === "delete") {
         expression = expression.slice(0, -1);
         justCalculated = false;
         render();
+
       } else if (button.dataset.action === "calculate") {
         calculate();
+
       } else if (button.dataset.value !== undefined) {
         appendValue(button.dataset.value);
       }
@@ -488,76 +458,26 @@ function calculate() {
     document.addEventListener("keydown", function(event) {
       if (/^[0-9.]$/.test(event.key)) {
         appendValue(event.key);
+
       } else if (["+", "-", "*", "/"].includes(event.key)) {
         appendValue(event.key);
+
       } else if (event.key === "Enter" || event.key === "=") {
         event.preventDefault();
         calculate();
+
       } else if (event.key === "Backspace") {
         expression = expression.slice(0, -1);
         justCalculated = false;
         render();
+
       } else if (event.key === "Escape" || event.key === "Delete") {
         clearAll();
       }
     });
   </script>
-  <script>
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker.register("./service-worker.js")
-      .then(() => console.log("Offline support activated"))
-      .catch(error => console.error("Offline support failed:", error));
-  });
-}
-  </script>
+
 </body>
-  <script>
-(function () {
-  const installKey = "jambPwaInstallTracked";
-
-  function sendInstallEvent(method) {
-    if (localStorage.getItem(installKey) === "yes") return;
-
-    if (typeof gtag !== "function") return;
-
-    gtag("event", "pwa_install", {
-      installation_method: method,
-      app_platform: /iPhone|iPad|iPod/i.test(navigator.userAgent)
-        ? "apple_mobile"
-        : /Android/i.test(navigator.userAgent)
-          ? "android"
-          : "desktop_or_other"
-    });
-
-    localStorage.setItem(installKey, "yes");
-  }
-
-  window.addEventListener("appinstalled", function () {
-    sendInstallEvent("automatic_appinstalled_event");
-  });
-
-  const isInstalled =
-    window.matchMedia("(display-mode: standalone)").matches ||
-    window.navigator.standalone === true;
-
-  if (isInstalled && localStorage.getItem(installKey) !== "yes") {
-    const button = document.createElement("button");
-    button.textContent = "Confirm app installation";
-    button.style.cssText =
-      "display:block;margin:10px auto;padding:12px 18px;border:0;border-radius:10px;background:#087A50;color:white;font-weight:bold;";
-
-    button.addEventListener("click", function () {
-      sendInstallEvent("user_confirmed_in_installed_app");
-      if (localStorage.getItem(installKey) === "yes") {
-        button.textContent = "Installation recorded ✓";
-        button.disabled = true;
-      }
-    });
-
-    document.querySelector(".calculator").appendChild(button);
-  }
-})();
-  </script>
+</html>cript>
 </html>
 
