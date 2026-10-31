@@ -63,18 +63,35 @@ body {
   border-radius: 15px 15px 0 0;  
 }  
   
-.theme-toggle {  
-  width: 65px;  
-  height: 55px;  
-  margin-left: auto;  
-  margin-right: 12px;  
-  border: 1px solid #c5cbd2;  
-  border-radius: 12px;  
-  background: #f5f5f5;  
-  color: #222;  
-  font-size: 26px;  
-  cursor: pointer;  
-}  
+..theme-toggle {
+  width: 65px;
+  height: 55px;
+  margin-left: 0;
+  margin-right: 12px;
+  border: 1px solid #c5cbd2;
+  border-radius: 12px;
+  background: #f5f5f5;
+  color: #222;
+  font-size: 26px;
+  cursor: pointer;
+}
+
+.install-btn {
+  margin-left: auto;
+  margin-right: 10px;
+  padding: 10px 14px;
+  border: 1px solid #087A50;
+  border-radius: 10px;
+  background: #087A50;
+  color: white;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.install-btn[hidden] {
+  display: none;
+  }
   
 .close {  
   width: 60px;  
@@ -250,7 +267,9 @@ body.dark-mode .theme-toggle {
   </style>  </head>  <body>  
   <main class="calculator">  
     <div class="titlebar">  
-  <span>JAMB Calculator</span>    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">  
+  <span>JAMB Calculator</span>  
+      <button class="install-btn" id="installBtn" type="button" hidden>Install</button>
+      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">  
     🌙  
   </button>  <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
 </div>
@@ -419,5 +438,29 @@ function calculate() {
         clearAll();  
       }  
     });  
-  </script>  </body>  
+    let deferredInstallPrompt = null;
+const installBtn = document.getElementById("installBtn");
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installBtn.hidden = false;
+});
+
+installBtn.addEventListener("click", async () => {
+  if (!deferredInstallPrompt) return;
+
+  deferredInstallPrompt.prompt();
+  await deferredInstallPrompt.userChoice;
+
+  deferredInstallPrompt = null;
+  installBtn.hidden = true;
+});
+
+window.addEventListener("appinstalled", () => {
+  installBtn.hidden = true;
+  deferredInstallPrompt = null;
+});
+  </script>  
+  </body>  
 </html>
