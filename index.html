@@ -261,6 +261,44 @@ body.dark-mode .theme-toggle {
     min-height: 123px;
   }
 }
+    /* INSTALLED APP FULL-SCREEN LAYOUT */
+@media (display-mode: standalone) {
+  body {
+    padding: 8px;
+    justify-content: flex-start;
+  }
+
+  .calculator {
+    width: 100%;
+    max-width: none;
+    border-radius: 12px;
+  }
+
+  .titlebar {
+    min-height: 65px;
+    font-size: 20px;
+  }
+
+  .display {
+    min-height: 115px;
+    font-size: 42px;
+    margin: 10px;
+  }
+
+  .keys {
+    gap: 9px;
+    padding: 10px;
+  }
+
+  button.key {
+    min-height: 75px;
+    font-size: 26px;
+  }
+
+  button.equals {
+    min-height: 159px;
+  }
+}
 
   </style>
   <link rel="manifest" href="manifest.json">
