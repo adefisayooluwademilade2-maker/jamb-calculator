@@ -76,13 +76,14 @@ body {
   cursor: pointer;
 }
 .install-btn {
-  margin-left: auto;
-  margin-right: 10px;
+  display: block;
+  width: fit-content;
+  margin: 10px 12px 10px auto;
   padding: 10px 14px;
   border: 1px solid #087A50;
   border-radius: 10px;
-  background: #087A50;
-  color: white;
+  background: white;
+  color: #087A50;
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
@@ -91,30 +92,10 @@ body {
 .install-btn[hidden] {
   display: none;
 }
-
-.titlebar:has(.install-btn:not([hidden])) .theme-toggle {
-  margin-left: 0;
-}
   
 .close {  
   width: 60px;  
   height: 55px;  
-  border: 0;  
-  border-radius: 10px;  
-  background: #e65d49;  
-  color: white;  
-  font-size: 29px;  
-  cursor: pointer;  
-}  
-  
-.display {  
-  min-height: 135px;  
-  margin: 12px;  
-  padding: 25px 20px;  
-  display: flex;  
-  align-items: center;  
-  justify-content: flex-end;  
-  background: white;  
   border: 1px solid #d4d8dc;  
   border-radius: 7px;  
   font-size: 48px;  
