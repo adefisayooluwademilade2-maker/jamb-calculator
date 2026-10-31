@@ -63,10 +63,10 @@ body {
   border-radius: 15px 15px 0 0;  
 }  
   
-..theme-toggle {
+.theme-toggle {
   width: 65px;
   height: 55px;
-  margin-left: 0;
+  margin-left: auto;
   margin-right: 12px;
   border: 1px solid #c5cbd2;
   border-radius: 12px;
@@ -75,7 +75,6 @@ body {
   font-size: 26px;
   cursor: pointer;
 }
-
 .install-btn {
   margin-left: auto;
   margin-right: 10px;
@@ -91,7 +90,11 @@ body {
 
 .install-btn[hidden] {
   display: none;
-  }
+}
+
+.titlebar:has(.install-btn:not([hidden])) .theme-toggle {
+  margin-left: 0;
+}
   
 .close {  
   width: 60px;  
