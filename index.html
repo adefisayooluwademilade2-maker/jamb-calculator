@@ -42,34 +42,33 @@
     }
 
     body {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      min-height: 100vh;
-      min-height: 100dvh;
-      display: flex;
-      flex-direction: column;
-      overflow-x: hidden;
-      background: #e9edf2;
-      font-family: Arial, sans-serif;
-      color: #222;
-      transition: background .3s, color .3s;
-    }
+  margin: 0;
+  min-height: 100vh;
+  height: auto;
+  overflow-y: auto;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  background: #e9edf2;
+  font-family: Arial, sans-serif;
+  color: #222;
+  transition: background .3s, color .3s;
+  overflow-x: hidden;
+}
 
-    .calculator {
-      width: 100%;
-      max-width: none;
-      min-height: 100vh;
-      min-height: 100dvh;
-      border-radius: 0;
-      box-shadow: none;
-      border: 0;
-      background: #f5f5f5;
-      display: flex;
-      flex-direction: column;
-      overflow: hidden;
-      transition: background .3s, border .3s;
-    }
+.calculator {
+  width: 100%;
+  max-width: 570px;
+  background: #f5f5f5;
+  border: 1px solid #c5cbd2;
+  border-radius: 15px;
+  box-shadow: 0 8px 25px #0002;
+  overflow: hidden;
+  transition: background .3s, border .3s;
+}
 
     .titlebar {
       min-height: 72px;
