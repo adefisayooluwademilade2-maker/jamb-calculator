@@ -46,13 +46,18 @@ body {
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
   padding: 20px;
   background: #e9edf2;
   font-family: Arial, sans-serif;
   color: #222;
   transition: background .3s, color .3s;
+}
+
+.calculator {
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .calculator {
@@ -307,30 +312,20 @@ body.dark-mode .theme-toggle {
     <p class="note">JAMB Calculator · Free online calculator</p>
   </main>
 
-  
-    <footer style="width:100%; 
-      box-sizing:border-box; 
-      margin-top:auto; padding:20px 12px; 
-      text-align:center; border-top:1px 
-      solid #ccc; font-size:13px; 
-      background:transparent; 
-      color:inherit;">
-      <nav style="display:flex; 
-        justify-content:center; 
-        flex-wrap:wrap; gap:12px 18px;">
-        <a href="privacy.html">Privacy Policy</a>
-        <a href="about.html">About Us</a>
-        <a href="contact.html">Contact Us</a>
-        <a href="feedback.html">Feedback</a>
-      </nav>
+  <footer style="width:100%; box-sizing:border-box; margin-top:0; padding:16px 4px; text-align:center; border-top:1px solid #ccc; font-size:12px; background:transparent; color:inherit;">
 
-      <p>
-        Contact:
-        <a href="mailto:metalarcher62@gmail.com">metalarcher62@gmail.com</a>
-      </p>
+  <nav style="display:flex; justify-content:center; align-items:center; flex-wrap:nowrap; gap:clamp(8px, 2vw, 18px); white-space:nowrap;">
+    <a href="privacy.html">Privacy Policy</a>
+    <a href="about.html">About Us</a>
+    <a href="contact.html">Contact Us</a>
+    <a href="feedback.html">Feedback</a>
+  </nav>
 
-      <p>© 2026 JAMB Calculator. All rights reserved.</p>
-    </footer>
+  <p style="margin:12px 0 0; white-space:nowrap;">
+    Contact: <a href="mailto:metalarcher62@gmail.com">metalarcher62@gmail.com</a>
+  </p>
+
+</footer>
   
   <script>
     const display = document.getElementById("display");
