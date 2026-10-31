@@ -509,5 +509,52 @@ if ("serviceWorker" in navigator) {
 }
   </script>
 </body>
+  <script>
+(function () {
+  const installKey = "jambPwaInstallTracked";
+
+  function sendInstallEvent(method) {
+    if (localStorage.getItem(installKey) === "yes") return;
+
+    if (typeof gtag !== "function") return;
+
+    gtag("event", "pwa_install", {
+      installation_method: method,
+      app_platform: /iPhone|iPad|iPod/i.test(navigator.userAgent)
+        ? "apple_mobile"
+        : /Android/i.test(navigator.userAgent)
+          ? "android"
+          : "desktop_or_other"
+    });
+
+    localStorage.setItem(installKey, "yes");
+  }
+
+  window.addEventListener("appinstalled", function () {
+    sendInstallEvent("automatic_appinstalled_event");
+  });
+
+  const isInstalled =
+    window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+
+  if (isInstalled && localStorage.getItem(installKey) !== "yes") {
+    const button = document.createElement("button");
+    button.textContent = "Confirm app installation";
+    button.style.cssText =
+      "display:block;margin:10px auto;padding:12px 18px;border:0;border-radius:10px;background:#087A50;color:white;font-weight:bold;";
+
+    button.addEventListener("click", function () {
+      sendInstallEvent("user_confirmed_in_installed_app");
+      if (localStorage.getItem(installKey) === "yes") {
+        button.textContent = "Installation recorded ✓";
+        button.disabled = true;
+      }
+    });
+
+    document.querySelector(".calculator").appendChild(button);
+  }
+})();
+  </script>
 </html>
 
