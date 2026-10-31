@@ -1,453 +1,421 @@
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <!-- Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWWEW3RD5Q"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-HWWEW3RD5Q');
-  </script>
-
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-
-  <link rel="canonical" href="https://jamb-calculator.pages.dev/">
-  <meta name="google-site-verification" content="Pa09ezhUhu7f5NaU9DvS6R2dy6RAX7-TgHwWaQny-5g">
-
-  <meta name="description" content="Use this free online JAMB calculator to practise calculations before your JAMB exam. Simple, fast and easy to use on your phone, tablet or computer.">
-
-  <meta property="og:title" content="JAMB Calculator | Free Online Calculator">
-  <meta property="og:description" content="Use JAMB Calculator for quick, easy everyday calculations on any device.">
-  <meta property="og:type" content="website">
-  <meta property="og:url" content="https://jamb-calculator.pages.dev/">
-
-  <title>JAMB Calculator | Free Online Calculator</title>
-
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
-    "name": "JAMB Calculator",
-    "alternateName": "JAMB Calculator | Free Online Calculator",
-    "url": "https://jamb-calculator.pages.dev/"
-  }
-  </script>
-
-  <style>
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      padding: 12px;
-      background: #e9edf2;
-      font-family: Arial, sans-serif;
-      color: #222;
-      transition: background .3s, color .3s;
-    }
-
-    .calculator {
-      width: min(340px, 100%);
-      background: #f5f5f5;
-      border: 1px solid #c5cbd2;
-      border-radius: 15px;
-      box-shadow: 0 8px 25px #0002;
-      overflow: hidden;
-      transition: background .3s, border .3s;
-    }
-
-    .titlebar {
-      min-height: 40px;
-      display: flex;
-      align-items: center;
-      padding: 4px 8px 4px 12px;
-      background: #e4e7eb;
-      border-bottom: 1px solid #c6cbd1;
-      font-size: 16px;
-      font-weight: bold;
-    }
-
-    .theme-toggle {
-      width: 35px;
-      height: 32px;
-      margin-left: auto;
-      margin-right: 6px;
-      border: 1px solid #c5cbd2;
-      border-radius: 8px;
-      background: #f5f5f5;
-      color: #222;
-      font-size: 18px;
-      cursor: pointer;
-    }
-
-    .close {
-      width: 35px;
-      height: 32px;
-      border: 0;
-      border-radius: 8px;
-      background: #e65d49;
-      color: white;
-      font-size: 22px;
-      cursor: pointer;
-    }
-
-    .display {
-      min-height: 90px;
-      margin: 8px;
-      padding: 15px 12px;
-      display: flex;
-      align-items: center;
-      justify-content: flex-end;
-      background: white;
-      border: 1px solid #d4d8dc;
-      border-radius: 7px;
-      font-size: 36px;
-      text-align: right;
-      overflow-wrap: anywhere;
-      overflow: hidden;
-    }
-
-    .keys {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      grid-template-rows: repeat(5, 58px);
-      gap: 5px;
-      padding: 8px;
-      background: #f5f5f5;
-    }
-
-    button.key {
-      min-width: 0;
-      min-height: 0;
-      border: 1px solid #d0d4d8;
-      border-radius: 8px;
-      background: #fafafa;
-      color: #222;
-      font-size: 23px;
-      font-weight: bold;
-      cursor: pointer;
-      touch-action: manipulation;
-      user-select: none;
-      -webkit-user-select: none;
-    }
-
-    button.key:active {
-      filter: brightness(.93);
-    }
-
-    button.operator,
-    button.clear,
-    button.del {
-      background: #e7e7e7;
-    }
-
-    button.equals {
-      background: #ee8b26;
-      border: 1px solid #d97917;
-      color: white;
-      font-weight: bold;
-      grid-row: span 2;
-      border-radius: 8px;
-    }
-
-    button.zero {
-      grid-column: span 2;
-    }
-
-    .note {
-      margin: 0;
-      padding: 6px;
-      text-align: center;
-      color: #666;
-      font-size: 12px;
-    }
-
-    /* DARK MODE */
-
-    body.dark-mode {
-      background: #17191c;
-      color: #f5f5f5;
-    }
-
-    body.dark-mode .calculator {
-      background: #24272b;
-      border-color: #111;
-    }
-
-    body.dark-mode .titlebar {
-      background: #292d34;
-      color: white;
-      border-color: #41464e;
-    }
-
-    body.dark-mode .display {
-      background: #181a1d;
-      color: white;
-      border-color: #444;
-    }
-
-    body.dark-mode .keys {
-      background: #24272b;
-    }
-
-    body.dark-mode button.key {
-      background: #363a41;
-      color: white;
-      border-color: #555b63;
-    }
-
-    body.dark-mode button.operator,
-    body.dark-mode button.clear,
-    body.dark-mode button.del {
-      background: #444951;
-      color: white;
-    }
-
-    body.dark-mode button.equals {
-      background: #ee8b26;
-      color: white;
-    }
-
-    body.dark-mode .note {
-      color: #aaa;
-    }
-
-    body.dark-mode .theme-toggle {
-      background: #41464e;
-      color: white;
-      border-color: #555b63;
-    }
-
-    @media (max-width: 360px) {
-      .calculator {
-        width: 100%;
-      }
-
-      .keys {
-        grid-template-rows: repeat(5, 54px);
-        gap: 4px;
-        padding: 7px;
-      }
-
-      button.key {
-        font-size: 21px;
-      }
-    }
-  </style>
-</head>
-
-<body>
-
-  <main class="calculator">
-
-    <div class="titlebar">
-      <span>JAMB Calculator</span>
-
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">
-        🌙
-      </button>
-
-      <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">
-        ×
-      </button>
-    </div>
-
-    <div class="display" id="display" aria-live="polite">0</div>
-
-    <div class="keys" id="keys">
-
-      <button class="key clear" data-action="clear">C</button>
-      <button class="key del" data-action="delete">Del</button>
-      <button class="key operator" data-value="/">÷</button>
-      <button class="key operator" data-value="*">×</button>
-
-      <button class="key" data-value="7">7</button>
-      <button class="key" data-value="8">8</button>
-      <button class="key" data-value="9">9</button>
-      <button class="key operator" data-value="-">−</button>
-
-      <button class="key" data-value="4">4</button>
-      <button class="key" data-value="5">5</button>
-      <button class="key" data-value="6">6</button>
-      <button class="key operator" data-value="+">+</button>
-
-      <button class="key" data-value="1">1</button>
-      <button class="key" data-value="2">2</button>
-      <button class="key" data-value="3">3</button>
-      <button class="key equals" data-action="calculate">=</button>
-
-      <button class="key zero" data-value="0">0</button>
-      <button class="key" data-value=".">.</button>
-
-    </div>
-
-    <p class="note">JAMB Calculator · Free online calculator</p>
-
-  </main>
-
-  <script>
-    const display = document.getElementById("display");
-    const keys = document.getElementById("keys");
-    const closeBtn = document.getElementById("closeBtn");
-    const themeToggle = document.getElementById("themeToggle");
-
-    try {
-      if (localStorage.getItem("jambTheme") === "dark") {
-        document.body.classList.add("dark-mode");
-        themeToggle.textContent = "☀️";
-      }
-    } catch (error) {
-      console.warn("Theme preference could not be loaded.");
-    }
-
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark-mode");
-
-      const isDark = document.body.classList.contains("dark-mode");
-      themeToggle.textContent = isDark ? "☀️" : "🌙";
-
-      try {
-        localStorage.setItem("jambTheme", isDark ? "dark" : "light");
-      } catch (error) {
-        console.warn("Theme preference could not be saved.");
-      }
-    });
-
-    let expression = "";
-    let justCalculated = false;
-
-    function render() {
-      display.textContent =
-        expression.replace(/\*/g, "×").replace(/\//g, "÷") || "0";
-    }
-
-    function clearAll() {
-      expression = "";
-      justCalculated = false;
-      render();
-    }
-
-    function appendValue(value) {
-      if (justCalculated) {
-        if (["+", "-", "*", "/"].includes(value)) {
-          justCalculated = false;
-        } else {
-          expression = "";
-          justCalculated = false;
-        }
-      }
-
-      if (value === ".") {
-        const currentNumber = expression.split(/[+\-*/]/).pop();
-
-        if (currentNumber.includes(".")) return;
-
-        if (!currentNumber) expression += "0";
-      }
-
-      expression += value;
-      render();
-    }
-
-    function calculate() {
-      if (!expression) return;
-
-      const safeExpression = expression;
-
-      function showError() {
-        expression = "";
-        justCalculated = false;
-        display.textContent = "Error";
-
-        setTimeout(() => {
-          if (display.textContent === "Error") {
-            display.textContent = "0";
-          }
-        }, 1000);
-      }
-
-      if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {
-        showError();
-        return;
-      }
-
-      if (/[+\-*/.]$/.test(safeExpression)) {
-        showError();
-        return;
-      }
-
-      try {
-        const result = Function(
-          '"use strict"; return (' + safeExpression + ')'
-        )();
-
-        if (typeof result !== "number" || !Number.isFinite(result)) {
-          showError();
-          return;
-        }
-
-        expression = String(Number(result.toPrecision(12)));
-        justCalculated = true;
-        render();
-
-      } catch (error) {
-        showError();
-      }
-    }
-
-    keys.addEventListener("click", function(event) {
-      const button = event.target.closest("button");
-
-      if (!button) return;
-
-      if (button.dataset.action === "clear") {
-        clearAll();
-
-      } else if (button.dataset.action === "delete") {
-        expression = expression.slice(0, -1);
-        justCalculated = false;
-        render();
-
-      } else if (button.dataset.action === "calculate") {
-        calculate();
-
-      } else if (button.dataset.value !== undefined) {
-        appendValue(button.dataset.value);
-      }
-    });
-
-    closeBtn.addEventListener("click", clearAll);
-
-    document.addEventListener("keydown", function(event) {
-      if (/^[0-9.]$/.test(event.key)) {
-        appendValue(event.key);
-
-      } else if (["+", "-", "*", "/"].includes(event.key)) {
-        appendValue(event.key);
-
-      } else if (event.key === "Enter" || event.key === "=") {
-        event.preventDefault();
-        calculate();
-
-      } else if (event.key === "Backspace") {
-        expression = expression.slice(0, -1);
-        justCalculated = false;
-        render();
-
-      } else if (event.key === "Escape" || event.key === "Delete") {
-        clearAll();
-      }
-    });
-  </script>
-
-</body>
-        </html>
+<!DOCTYPE html>  <html lang="en">  
+<head>  <!-- Google Analytics -->  <script async src="https://www.googletagmanager.com/gtag/js?id=G-HWWEW3RD5Q"></script>  <script>  
+  window.dataLayer = window.dataLayer || [];  
+  function gtag(){dataLayer.push(arguments);}  
+  gtag('js', new Date());  
+  gtag('config', 'G-HWWEW3RD5Q');  
+</script>    <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <meta name="google-site-verification" content="Pa09ezhUhu7f5NaU9DvS6R2dy6RAX7-TgHwWaQny-5g">  
+  <meta name="description" content="Use this free online JAMB calculator to practise calculations before your JAMB exam. Simple, fast and easy to use on your phone, tablet or computer.">  
+  <meta property="og:title" content="JAMB Calculator | Free Online Calculator">  
+  <meta property="og:description" content="Use JAMB Calculator for quick, easy everyday calculations on any device.">  
+  <meta property="og:type" content="website">  
+  <meta property="og:url" content="https://adefisayooluwademilade2-maker.github.io/jamb-calculator/">    <title>JAMB Calculator | Free Online Calculator</title>    <script type="application/ld+json">  
+{  
+  "@context": "https://schema.org",  
+  "@type": "WebSite",  
+  "name": "JAMB Calculator",  
+  "alternateName": "JAMB Calculator | Free Online Calculator",  
+  "url": "https://adefisayooluwademilade2-maker.github.io/jamb-calculator/"  
+}  
+  </script>    <style>  
+      
+* {  
+  box-sizing: border-box;  
+}  
   
+body {  
+  margin: 0;  
+  min-height: 100vh;  
+  display: flex;  
+  justify-content: center;  
+  align-items: center;  
+  padding: 20px;  
+  background: #e9edf2;  
+  font-family: Arial, sans-serif;  
+  color: #222;  
+  transition: background .3s, color .3s;  
+}  
+  
+.calculator {  
+  width: 100%;  
+  max-width: 570px;  
+  background: #f5f5f5;  
+  border: 1px solid #c5cbd2;  
+  border-radius: 15px;  
+  box-shadow: 0 8px 25px #0002;  
+  overflow: hidden;  
+  transition: background .3s, border .3s;  
+}  
+  
+.titlebar {  
+  min-height: 72px;  
+  display: flex;  
+  align-items: center;  
+  padding: 12px 16px 12px 25px;  
+  background: #e4e7eb;  
+  border-bottom: 1px solid #c6cbd1;  
+  font-size: 21px;  
+  font-weight: bold;  
+  border-radius: 15px 15px 0 0;  
+}  
+  
+.theme-toggle {  
+  width: 65px;  
+  height: 55px;  
+  margin-left: auto;  
+  margin-right: 12px;  
+  border: 1px solid #c5cbd2;  
+  border-radius: 12px;  
+  background: #f5f5f5;  
+  color: #222;  
+  font-size: 26px;  
+  cursor: pointer;  
+}  
+  
+.close {  
+  width: 60px;  
+  height: 55px;  
+  border: 0;  
+  border-radius: 10px;  
+  background: #e65d49;  
+  color: white;  
+  font-size: 29px;  
+  cursor: pointer;  
+}  
+  
+.display {  
+  min-height: 135px;  
+  margin: 12px;  
+  padding: 25px 20px;  
+  display: flex;  
+  align-items: center;  
+  justify-content: flex-end;  
+  background: white;  
+  border: 1px solid #d4d8dc;  
+  border-radius: 7px;  
+  font-size: 48px;  
+  text-align: right;  
+  overflow-wrap: anywhere;  
+  overflow: hidden;  
+}  
+  
+.keys {  
+  display: grid;  
+  grid-template-columns: repeat(4, minmax(0, 1fr));  
+  gap: 10px;  
+  padding: 12px 20px;  
+  background: #f5f5f5;  
+}  
+  
+button.key {  
+  min-height: 90px;  
+  border: 1px solid #d0d4d8;  
+  border-radius: 10px;  
+  background: #fafafa;  
+  color: #222;  
+  font-size: 28px;  
+  font-weight: bold;  
+  cursor: pointer;  
+  touch-action: manipulation;  
+  user-select: none;  
+  -webkit-user-select: none;  
+}  
+  
+button.key:active {  
+  filter: brightness(.93);  
+}  
+  
+button.operator,  
+button.clear,  
+button.del {  
+  background: #e7e7e7;  
+}  
+  
+button.equals {  
+  background: #ee8b26;  
+  border: 1px solid #d97917;  
+  color: white;  
+  font-weight: bold;  
+  grid-row: span 2;  
+  min-height: 190px;  
+  border-radius: 10px;  
+}  
+  
+button.zero {  
+  grid-column: span 2;  
+}  
+  
+.note {  
+  margin: 0;  
+  padding: 15px 10px 20px;  
+  text-align: center;  
+  color: #666;  
+  font-size: 14px;  
+}  
+  
+/* DARK MODE */  
+  
+body.dark-mode {  
+  background: #17191c;  
+  color: #f5f5f5;  
+}  
+  
+body.dark-mode .calculator {  
+  background: #24272b;  
+  border-color: #111;  
+}  
+  
+body.dark-mode .titlebar {  
+  background: #292d34;  
+  color: white;  
+  border-color: #41464e;  
+}  
+  
+body.dark-mode .display {  
+  background: #181a1d;  
+  color: white;  
+  border-color: #444;  
+}  
+  
+body.dark-mode .keys {  
+  background: #24272b;  
+}  
+  
+body.dark-mode button.key {  
+  background: #363a41;  
+  color: white;  
+  border-color: #555b63;  
+}  
+  
+body.dark-mode button.operator,  
+body.dark-mode button.clear,  
+body.dark-mode button.del {  
+  background: #444951;  
+  color: white;  
+}  
+  
+body.dark-mode button.equals {  
+  background: #ee8b26;  
+  color: white;  
+}  
+  
+body.dark-mode .note {  
+  color: #aaa;  
+}  
+  
+body.dark-mode .theme-toggle {  
+  background: #41464e;  
+  color: white;  
+  border-color: #555b63;  
+}  
+  
+/* SMALL PHONE SCREENS */  
+  
+@media (max-width: 420px) {  
+  .calculator {  
+    max-width: 370px;  
+  }  
+  
+  .titlebar {  
+    min-height: 55px;  
+    padding: 8px 10px 8px 14px;  
+    font-size: 17px;  
+  }  
+  
+  .theme-toggle,  
+  .close {  
+    width: 43px;  
+    height: 42px;  
+  }  
+  
+  .display {  
+    min-height: 92px;  
+    font-size: 36px;  
+  }  
+  
+  button.key {  
+    min-height: 58px;  
+    font-size: 22px;  
+  }  
+  
+  button.equals {  
+    min-height: 123px;  
+  }  
+}  
+  
+  </style>  </head>  <body>  
+  <main class="calculator">  
+    <div class="titlebar">  
+  <span>JAMB Calculator</span>    <button class="theme-toggle" id="themeToggle" type="button" aria-label="Switch theme">  
+    🌙  
+  </button>  <button class="close" id="closeBtn" type="button" aria-label="Clear calculator">×</button>
+</div>
+
+<div class="display" id="display" aria-live="polite">0</div>  
+
+<div class="keys" id="keys">  
+  <button class="key clear" data-action="clear">C</button>  
+  <button class="key del" data-action="delete">Del</button>  
+  <button class="key operator" data-value="/">÷</button>  
+  <button class="key operator" data-value="*">×</button>  
+
+  <button class="key" data-value="7">7</button>  
+  <button class="key" data-value="8">8</button>  
+  <button class="key" data-value="9">9</button>  
+  <button class="key operator" data-value="-">−</button>  
+
+  <button class="key" data-value="4">4</button>  
+  <button class="key" data-value="5">5</button>  
+  <button class="key" data-value="6">6</button>  
+  <button class="key operator" data-value="+">+</button>  
+
+  <button class="key" data-value="1">1</button>  
+  <button class="key" data-value="2">2</button>  
+  <button class="key" data-value="3">3</button>  
+  <button class="key equals" data-action="calculate">=</button>  
+
+  <button class="key zero" data-value="0">0</button>  
+  <button class="key" data-value=".">.</button>  
+</div>  
+
+<p class="note">JAMB Calculator · Free online calculator</p>
+
+  </main>    <script>  
+    const display = document.getElementById("display");  
+    const keys = document.getElementById("keys");  
+    const closeBtn = document.getElementById("closeBtn");  
+  
+    const themeToggle = document.getElementById("themeToggle");  
+  
+if (localStorage.getItem("jambTheme") === "dark") {  
+  document.body.classList.add("dark-mode");  
+  themeToggle.textContent = "☀️";  
+}  
+  
+themeToggle.addEventListener("click", () => {  
+  document.body.classList.toggle("dark-mode");  
+  
+  const isDark = document.body.classList.contains("dark-mode");  
+  themeToggle.textContent = isDark ? "☀️" : "🌙";  
+  localStorage.setItem("jambTheme", isDark ? "dark" : "light");  
+});  
+      
+    let expression = "";  
+    let justCalculated = false;  
+  
+    function render() {  
+      display.textContent =  
+        expression.replace(/\*/g, "×").replace(/\//g, "÷") || "0";  
+    }  
+  
+    function clearAll() {  
+      expression = "";  
+      justCalculated = false;  
+      render();  
+    }  
+  
+function appendValue(value) {  
+  if (justCalculated) {  
+    if (["+", "-", "*", "/"].includes(value)) {  
+      justCalculated = false;  
+    } else {  
+      expression = "";  
+      justCalculated = false;  
+    }  
+  }  
+  
+  if (value === ".") {  
+    const currentNumber = expression.split(/[+\-*/]/).pop();  
+  
+    if (currentNumber.includes(".")) return;  
+  
+    if (!currentNumber) expression += "0";  
+  }  
+  
+  expression += value;  
+  render();  
+}  
+  
+      
+function calculate() {  
+  if (!expression) return;  
+  
+  const safeExpression = expression;  
+  
+  function showError() {  
+    expression = "";  
+    justCalculated = false;  
+    display.textContent = "Error";  
+  
+    setTimeout(() => {  
+      display.textContent = "0";  
+    }, 1000);  
+  }  
+  
+  if (!/^[0-9+\-*/.()\s]+$/.test(safeExpression)) {  
+    showError();  
+    return;  
+  }  
+  
+  if (/[+\-*/.]$/.test(safeExpression)) {  
+    showError();  
+    return;  
+  }  
+  
+  try {  
+    const result = Function(  
+      '"use strict"; return (' + safeExpression + ')'  
+    )();  
+  
+    if (typeof result !== "number" || !Number.isFinite(result)) {  
+      showError();  
+      return;  
+    }  
+  
+    expression = String(Number(result.toPrecision(12)));  
+    justCalculated = true;  
+    render();  
+  } catch (error) {  
+    showError();  
+  }  
+}  
+    keys.addEventListener("click", function(event) {  
+      const button = event.target.closest("button");  
+  
+      if (!button) return;  
+  
+      if (button.dataset.action === "clear") {  
+        clearAll();  
+      } else if (button.dataset.action === "delete") {  
+        expression = expression.slice(0, -1);  
+        justCalculated = false;  
+        render();  
+      } else if (button.dataset.action === "calculate") {  
+        calculate();  
+      } else if (button.dataset.value !== undefined) {  
+        appendValue(button.dataset.value);  
+      }  
+    });  
+  
+    closeBtn.addEventListener("click", clearAll);  
+  
+    document.addEventListener("keydown", function(event) {  
+      if (/^[0-9.]$/.test(event.key)) {  
+        appendValue(event.key);  
+      } else if (["+", "-", "*", "/"].includes(event.key)) {  
+        appendValue(event.key);  
+      } else if (event.key === "Enter" || event.key === "=") {  
+        event.preventDefault();  
+        calculate();  
+      } else if (event.key === "Backspace") {  
+        expression = expression.slice(0, -1);  
+        justCalculated = false;  
+        render();  
+      } else if (event.key === "Escape" || event.key === "Delete") {  
+        clearAll();  
+      }  
+    });  
+  </script>  </body>  
+</html>
