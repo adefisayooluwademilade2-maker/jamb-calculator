@@ -476,7 +476,28 @@
       }
     });
   </script>
+<script>
+(async function () {
+  if ("serviceWorker" in navigator) {
+    const registrations = await navigator.serviceWorker.getRegistrations();
 
+    for (const registration of registrations) {
+      await registration.unregister();
+    }
+  }
+
+  if ("caches" in window) {
+    const cacheNames = await caches.keys();
+
+    for (const cacheName of cacheNames) {
+      if (cacheName.includes("jamb-calculator")) {
+        await caches.delete(cacheName);
+      }
+    }
+  }
+})();
+</script>
+  
 </body>
 </html>cript>
 </html>
