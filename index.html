@@ -466,6 +466,15 @@ function calculate() {
       }
     });
   </script>
+  <script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./service-worker.js")
+      .then(() => console.log("Offline support activated"))
+      .catch(error => console.error("Offline support failed:", error));
+  });
+}
+  </script>
 </body>
 </html>
 
