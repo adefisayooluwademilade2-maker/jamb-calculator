@@ -1,20 +1,36 @@
+async function hash(value) {
+  const data = new TextEncoder().encode(value);
+  const digest = await crypto.subtle.digest("SHA-256", data);
+
+  return [...new Uint8Array(digest)]
+    .map(b => b.toString(16).padStart(2, "0"))
+    .join("");
+}
+
 export async function onRequestGet({ request, env }) {
   try {
-    const auth = request.headers.get("Authorization");
-
-    if (
-      !env.ADMIN_KEY ||
-      auth !== `Bearer ${env.ADMIN_KEY}`
-    ) {
-      return new Response("Unauthorized", {
-        status: 401
-      });
+    if (!env.DB) {
+      return new Response("Database unavailable", { status: 500 });
     }
 
-    if (!env.DB) {
-      return new Response("Database unavailable", {
-        status: 500
-      });
+    const cookie = request.headers.get("Cookie") || "";
+    const match = cookie.match(/(?:^|;\s*)admin_session=([a-f0-9]{64})(?:;|$)/i);
+
+    if (!match) {
+      return new Response("Unauthorized", { status: 401 });
+    }
+
+    const tokenHash = await hash(match[1]);
+
+    const session = await env.DB.prepare(`
+      SELECT token_hash
+      FROM admin_sessions
+      WHERE token_hash = ?
+      AND expires_at > ?
+    `).bind(tokenHash, new Date().toISOString()).first();
+
+    if (!session) {
+      return new Response("Unauthorized", { status: 401 });
     }
 
     const [total, active, returning, recent] = await Promise.all([
@@ -40,10 +56,11 @@ export async function onRequestGet({ request, env }) {
       activeLast30Days: active.count,
       returningInstallations: returning.count,
       visitsLast7Days: recent.count
+    }, {
+      headers: { "Cache-Control": "no-store" }
     });
-  } catch (error) {
-    return new Response("Statistics unavailable", {
-      status: 500
-    });
+
+  } catch {
+    return new Response("Statistics unavailable", { status: 500 });
   }
 }
