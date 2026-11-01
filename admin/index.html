@@ -1,1 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>JAMB Calculator Admin</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      padding: 24px;
+      background: #eef2f7;
+      color: #172033;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      max-width: 750px;
+      margin: 40px auto;
+    }
+    .panel {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      box-shadow: 0 5px 25px #0000000d;
+      margin-bottom: 20px;
+    }
+    h1 { margin-top: 0; }
+    input, button {
+      width: 100%;
+      padding: 14px;
+      margin-top: 12px;
+      border-radius: 8px;
+      font-size: 16px;
+    }
+    input { border: 1px solid #ccd3df; }
+    button {
+      border: 0;
+      background: #008751;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 15px;
+    }
+    .number {
+      font-size: 32px;
+      font-weight: bold;
+      margin-top: 12px;
+    }
+    .label { color: #667085; }
+    #dashboard, #login { display: none; }
+    #message { color: #c0392b; }
+    .logout { background: #b42318; }
+  </style>
+</head>
+<body>
+  <main class="container">
 
+    <section id="login" class="panel">
+      <h1>Admin Login</h1>
+      <p>JAMB Calculator private dashboard</p>
+
+      <form id="loginForm">
+        <input
+          id="password"
+          type="password"
+          placeholder="Enter your admin password"
+          autocomplete="current-password"
+          required
+        >
+        <button type="submit">Sign in</button>
+      </form>
+
+      <p id="message" role="alert"></p>
+    </section>
+
+    <section id="dashboard">
+      <div class="panel">
+        <h1>JAMB Calculator Dashboard</h1>
+        <p>Private website statistics</p>
+        <button id="refresh">Refresh statistics</button>
+      </div>
+
+      <div class="cards">
+        <div class="panel">
+          <div class="label">Registered installations</div>
+          <div class="number" id="total">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="label">Active in last 30 days</div>
+          <div class="number" id="active">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="label">Returning installations</div>
+          <div class="number" id="returning">—</div>
+        </div>
+
+        <div class="panel">
+          <div class="label">Recorded visits in last 7 days</div>
+          <div class="number" id="visits">—</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <p id="status">Loading statistics...</p>
+        <button class="logout" id="logout">Log out</button>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const loginSection = document.getElementById("login");
+    const dashboard = document.getElementById("dashboard");
+    const message = document.getElementById("message");
+
+    async function checkSession() {
+      try {
+        const response = await fetch("/api/session", {
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        if (response.ok) {
+          const result = await response.json();
+
+          if (result.authenticated) {
+            loginSection.style.display = "none";
+            dashboard.style.display = "block";
+            await loadStats();
+            return;
+          }
+        }
+      } catch (error) {
+        console.error(error);
+      }
+
+      dashboard.style.display = "none";
+      loginSection.style.display = "block";
+    }
+
+    async function loadStats() {
+      const status = document.getElementById("status");
+      status.textContent = "Loading statistics...";
+
+      try {
+        const response = await fetch("/api/stats", {
+          credentials: "same-origin",
+          cache: "no-store"
+        });
+
+        if (response.status === 401) {
+          await checkSession();
+          return;
+        }
+
+        if (!response.ok) throw new Error("Could not load statistics.");
+
+        const data = await response.json();
+
+        document.getElementById("total").textContent =
+          data.totalInstallations;
+
+        document.getElementById("active").textContent =
+          data.activeLast30Days;
+
+        document.getElementById("returning").textContent =
+          data.returningInstallations;
+
+        document.getElementById("visits").textContent =
+          data.visitsLast7Days;
+
+        status.textContent = "Statistics updated successfully.";
+      } catch (error) {
+        status.textContent = "Unable to load statistics. Please try again.";
+      }
+    }
+
+    document.getElementById("loginForm").addEventListener("submit", async event => {
+      event.preventDefault();
+      message.textContent = "Signing in...";
+
+      try {
+        const response = await fetch("/api/login", {
+          method: "POST",
+          credentials: "same-origin",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            password: document.getElementById("password").value
+          })
+        });
+
+        if (!response.ok) {
+          message.textContent = "Login failed. Check your password.";
+          return;
+        }
+
+        document.getElementById("password").value = "";
+        message.textContent = "";
+        await checkSession();
+      } catch (error) {
+        message.textContent = "Connection error. Please try again.";
+      }
+    });
+
+    document.getElementById("refresh").addEventListener("click", loadStats);
+
+    document.getElementById("logout").addEventListener("click", async () => {
+      await fetch("/api/logout", {
+        method: "POST",
+        credentials: "same-origin"
+      });
+
+      dashboard.style.display = "none";
+      loginSection.style.display = "block";
+      message.textContent = "You have logged out.";
+    });
+
+    checkSession();
+  </script>
+</body>
+                                                     </html>
