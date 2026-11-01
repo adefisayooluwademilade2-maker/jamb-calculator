@@ -486,10 +486,10 @@ if (
   trackInstallation();
     }
 
-window.addEventListener("beforeinstallprompt", (event) => {
-  event.preventDefault();
-  deferredInstallPrompt = event;
-  installBtn.hidden = false;
+window.addEventListener("appinstalled", () => {
+  installBtn.hidden = true;
+  deferredInstallPrompt = null;
+  trackInstallation();
 });
 
 installBtn.addEventListener("click", async () => {
