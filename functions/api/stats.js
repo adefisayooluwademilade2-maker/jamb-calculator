@@ -1,14 +1,20 @@
 export async function onRequestGet({ request, env }) {
   try {
-    if (!env.DB) {
-      return new Response("Database not connected", { status: 500 });
+    const auth = request.headers.get("Authorization");
+
+    if (
+      !env.ADMIN_KEY ||
+      auth !== `Bearer ${env.ADMIN_KEY}`
+    ) {
+      return new Response("Unauthorized", {
+        status: 401
+      });
     }
 
-    const origin = request.headers.get("Origin");
-    const siteOrigin = new URL(request.url).origin;
-
-    if (origin && origin !== siteOrigin) {
-      return new Response("Forbidden", { status: 403 });
+    if (!env.DB) {
+      return new Response("Database unavailable", {
+        status: 500
+      });
     }
 
     const [total, active, returning, recent] = await Promise.all([
@@ -36,6 +42,8 @@ export async function onRequestGet({ request, env }) {
       visitsLast7Days: recent.count
     });
   } catch (error) {
-    return new Response("Could not load statistics", { status: 500 });
+    return new Response("Statistics unavailable", {
+      status: 500
+    });
   }
-      } 
+}
