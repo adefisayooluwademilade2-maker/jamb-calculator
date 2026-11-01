@@ -445,6 +445,40 @@ function calculate() {
     });  
     let deferredInstallPrompt = null;
 const installBtn = document.getElementById("installBtn");
+    function getInstallId() {
+  let id = localStorage.getItem("jambInstallId");
+
+  if (!id) {
+    id = crypto.randomUUID();
+    localStorage.setItem("jambInstallId", id);
+  }
+
+  return id;
+}
+
+async function trackInstallation() {
+  try {
+    await fetch("/api/track", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        installId: getInstallId()
+      })
+    });
+  } catch (error) {
+    console.error("Installation tracking failed:", error);
+  }
+}
+
+// Track activity when the installed app is opened.
+if (
+  window.matchMedia("(display-mode: standalone)").matches ||
+  window.navigator.standalone === true
+) {
+  trackInstallation();
+    }
 
 window.addEventListener("beforeinstallprompt", (event) => {
   event.preventDefault();
